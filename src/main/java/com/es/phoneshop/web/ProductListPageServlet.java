@@ -4,6 +4,7 @@ import com.es.phoneshop.model.product.ArrayListProductDao;
 import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.model.product.ProductDao;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,12 +19,12 @@ public class ProductListPageServlet extends HttpServlet {
     ProductDao productDao;
 
     @Override
-    public void init() throws ServletException {
-        super.init();
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
 
         productDao = ArrayListProductDao.getInstance();
-
-        productDao.saveAll(getSampleProducts());
+        System.out.println("a");
+        getSampleProducts().forEach(productDao::save);
     }
 
     @Override

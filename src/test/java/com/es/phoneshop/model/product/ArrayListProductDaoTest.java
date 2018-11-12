@@ -27,7 +27,7 @@ public class ArrayListProductDaoTest
         list.add(new Product(5L, "sgj", "Sam", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
         list.add(new Product(6L, "sgb", "Sam", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
 
-        productDao.saveAll(list);
+        list.forEach(productDao::save);
     }
 
     @Test

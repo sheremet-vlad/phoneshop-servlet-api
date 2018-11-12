@@ -39,7 +39,7 @@ public class ArrayListProductDao implements ProductDao {
     @Override
     public synchronized List<Product> findProducts() {
         return productList.stream()
-                .filter((p) -> p.getPrice().compareTo(BigDecimal.ZERO) > 0 && p.getStock() > 0)
+                .filter((p) -> p.getPrice() != null && p.getStock() > 0)
                 .collect(Collectors.toList());
     }
 
@@ -57,10 +57,5 @@ public class ArrayListProductDao implements ProductDao {
     @Override
     public synchronized void delete(Long id) {
         productList.remove(getProduct(id));
-    }
-
-    @Override
-    public synchronized void saveAll(List<Product> products) {
-        products.forEach(this::save);
     }
 }
