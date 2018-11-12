@@ -33,7 +33,7 @@ public class ArrayListProductDao implements ProductDao {
         return productList.stream()
                 .filter((p) -> p.getId().equals(id))
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("There is no element with such id"));
+                .orElseThrow(() -> new IllegalArgumentException("There is no element with such id = " + id));
     }
 
     @Override

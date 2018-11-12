@@ -16,12 +16,18 @@ import java.util.List;
 
 public class ProductListPageServlet extends HttpServlet {
     ProductDao productDao;
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void init() throws ServletException {
+        super.init();
+
         productDao = ArrayListProductDao.getInstance();
 
         productDao.saveAll(getSampleProducts());
+    }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("products", productDao.findProducts());
         request.getRequestDispatcher("/WEB-INF/pages/productList.jsp").forward(request, response);
     }
