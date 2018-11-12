@@ -23,7 +23,7 @@ public class ProductListPageServlet extends HttpServlet {
         super.init(config);
 
         productDao = ArrayListProductDao.getInstance();
-        System.out.println("a");
+        
         getSampleProducts().forEach(productDao::save);
     }
 
