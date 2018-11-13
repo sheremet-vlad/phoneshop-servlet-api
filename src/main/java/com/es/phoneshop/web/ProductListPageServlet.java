@@ -16,14 +16,14 @@ import java.util.Currency;
 import java.util.List;
 
 public class ProductListPageServlet extends HttpServlet {
-    ProductDao productDao;
+    private ProductDao productDao;
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public void init() throws ServletException {
+        super.init();
 
         productDao = ArrayListProductDao.getInstance();
-        
+
         getSampleProducts().forEach(productDao::save);
     }
 
