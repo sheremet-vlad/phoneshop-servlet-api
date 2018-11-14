@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArrayListProductDao implements ProductDao {
-    private List<Product> productList = new ArrayList<>();
+    private final List<Product> productList = new ArrayList<>();
 
     private static volatile ArrayListProductDao arrayListProductDao = null;
 
@@ -29,33 +29,42 @@ public class ArrayListProductDao implements ProductDao {
     }
 
     @Override
-    public synchronized Product getProduct(Long id) {
-        return productList.stream()
-                .filter((p) -> p.getId().equals(id))
-                .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("There is no element with such id = " + id));
-    }
-
-    @Override
-    public synchronized List<Product> findProducts() {
-        return productList.stream()
-                .filter((p) -> p.getPrice() != null && p.getStock() > 0)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public synchronized void save(Product product) {
-        Long id = product.getId();
-        boolean isExist = productList.stream()
-                .anyMatch((p) -> p.getId().equals(id));
-
-        if (!isExist) {
-            productList.add(product);
+    public Product getProduct(Long id) {
+        synchronized (productList) {
+            return productList.stream()
+                    .filter((p) -> p.getId().equals(id))
+                    .findAny()
+                    .orElseThrow(() -> new IllegalArgumentException("There is no element with such id = " + id));
         }
     }
 
     @Override
-    public synchronized void delete(Long id) {
-        productList.remove(getProduct(id));
+    public List<Product> findProducts() {
+        synchronized (productList) {
+            return productList.stream()
+                    .filter((p) -> p.getPrice() != null && p.getStock() > 0)
+                    .collect(Collectors.toList());
+        }
+    }
+
+    @Override
+    public void save(Product product) {
+        Long id = product.getId();
+
+        synchronized (productList) {
+            boolean isExist = productList.stream()
+                    .anyMatch((p) -> p.getId().equals(id));
+
+            if (!isExist) {
+                productList.add(product);
+            }
+        }
+    }
+
+    @Override
+    public void delete(Long id) {
+        synchronized (productList) {
+            productList.remove(getProduct(id));
+        }
     }
 }
