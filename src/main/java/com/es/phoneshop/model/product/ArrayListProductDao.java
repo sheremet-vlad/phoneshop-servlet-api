@@ -2,10 +2,12 @@ package com.es.phoneshop.model.product;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArrayListProductDao implements ProductDao {
+    private final static String QUERY_SPLIT = " or ";
     private final List<Product> productList = new ArrayList<>();
 
     private static volatile ArrayListProductDao arrayListProductDao = null;
@@ -39,10 +41,13 @@ public class ArrayListProductDao implements ProductDao {
     }
 
     @Override
-    public List<Product> findProducts() {
+    public List<Product> findProducts(String query) {
+        String[] queries = query == null ? null : query.split(QUERY_SPLIT);
+
         synchronized (productList) {
             return productList.stream()
                     .filter((p) -> p.getPrice() != null && p.getStock() > 0)
+                    .filter(p -> query == null || Arrays.stream(queries).anyMatch((q) -> p.getDescription().contains(q)))
                     .collect(Collectors.toList());
         }
     }

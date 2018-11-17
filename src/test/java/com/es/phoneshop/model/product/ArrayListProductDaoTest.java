@@ -48,7 +48,7 @@ public class ArrayListProductDaoTest
 
     @Test
     public void findAllProducts() {
-        List<Product> actualList = productDao.findProducts();
+        List<Product> actualList = productDao.findProducts("");
         int expectedSize = 7;
 
         Assert.assertEquals(expectedSize, actualList.size());
