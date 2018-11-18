@@ -5,6 +5,6 @@
   Time: 4:39
   To change this template use File | Settings | File Templates.
 --%>
-<footer>
+<footer style="border-top: 2px solid #2b2b2b; margin-top: 10px">
     phoneshop by Sheremet Vlad
 </footer>

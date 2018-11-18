@@ -35,7 +35,8 @@
   </servlet-mapping>
 
   <error-page>
-    <location>pages/error.jsp</location>
+    <error-code>404</error-code>
+    <location>/WEB-INF/pages/error.jsp</location>
   </error-page>
 
 </web-app>
