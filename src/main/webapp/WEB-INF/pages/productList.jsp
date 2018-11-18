@@ -21,6 +21,7 @@
         <input name="query" value="${param.query}">
         <button>Search</button>
       </form>
+      <a href="ffbbtbeeeb">Ссылка ошибка</a>
       <table>
         <thead>
           <tr>
