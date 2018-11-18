@@ -90,5 +90,5 @@ public class ArrayListProductDaoTest
 
         Assert.assertEquals(expectedSize, actualSize);
     }
-    
+
 }
