@@ -4,7 +4,6 @@ import com.es.phoneshop.model.product.ArrayListProductDao;
 import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.model.product.ProductDao;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +16,8 @@ import java.util.List;
 
 public class ProductListPageServlet extends HttpServlet {
     private final static String SEARCH_QUERY = "query";
+    private final static String SORT_PARAMETER = "sort";
+    private final static String ORDER_PARAMETER = "order";
 
     private ProductDao productDao;
 
@@ -32,7 +33,10 @@ public class ProductListPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String query = request.getParameter(SEARCH_QUERY);
-        request.setAttribute("products", productDao.findProducts(query));
+        String sort = request.getParameter(SORT_PARAMETER);
+        String order = request.getParameter(ORDER_PARAMETER);
+
+        request.setAttribute("products", productDao.findProducts(query, order, sort));
         request.getRequestDispatcher("/WEB-INF/pages/productList.jsp").forward(request, response);
     }
 

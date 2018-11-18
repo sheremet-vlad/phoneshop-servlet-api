@@ -28,8 +28,14 @@
         <thead>
           <tr>
             <td>Image</td>
-            <td>Description</td>
-            <td class="price">Price</td>
+            <td>Description
+                <a href="${pageContext.servletContext.contextPath}/products?sort=description&order=asc&query=${param.query}">acs</a>
+                <a href="${pageContext.servletContext.contextPath}/products?sort=description&order=dec&query=${param.query}">dec</a>
+            </td>
+            <td class="price">Price
+                <a href="${pageContext.servletContext.contextPath}/products?sort=price&order=asc&query=${param.query}">acs</a>
+                <a href="${pageContext.servletContext.contextPath}/products?sort=price&order=dec&query=${param.query}">dec</a>
+            </td>
           </tr>
         </thead>
         <c:forEach var="product" items="${products}">
