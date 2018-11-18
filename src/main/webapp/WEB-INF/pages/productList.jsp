@@ -10,12 +10,9 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/styles/main.css">
   </head>
   <body class="product-list">
-    <header>
-      <a href="${pageContext.servletContext.contextPath}">
-        <img src="${pageContext.servletContext.contextPath}/images/logo.svg"/>
-        PhoneShop
-      </a>
-    </header>
+  <div>
+      <jsp:include page="/WEB-INF/pages/header.jsp"/>
+  </div>
     <main>
       <p>
         Welcome to Expert-Soft training!
@@ -41,7 +38,9 @@
         <c:forEach var="product" items="${products}">
           <tr>
             <td>
-              <img class="product-tile" src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${product.imageUrl}">
+              <a href="${pageContext.servletContext.contextPath}/products/${product.id}">
+                  <img class="product-tile" src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${product.imageUrl}">
+              </a>
             </td>
             <td>${product.description}</td>
             <td class="price">
@@ -51,5 +50,9 @@
         </c:forEach>
       </table>
     </main>
+
+    <div>
+        <jsp:include page="/WEB-INF/pages/footer.jsp"/>
+    </div>
   </body>
 </html>

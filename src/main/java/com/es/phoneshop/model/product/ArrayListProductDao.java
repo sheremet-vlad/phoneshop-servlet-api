@@ -2,7 +2,6 @@ package com.es.phoneshop.model.product;
 
 import com.es.phoneshop.model.enumeration.OrderEnum;
 
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -64,7 +63,7 @@ public class ArrayListProductDao implements ProductDao {
 
     private List<Product> sortProduct(List<Product> list, String order, String sort) {
         OrderEnum orderEnum = OrderEnum.valueOf(order.toUpperCase());
-        List<Product> resultList = null;
+        List<Product> resultList;
 
         if (sort.equals(SORT_DESCRIPTION)) {
             resultList = list.stream()
