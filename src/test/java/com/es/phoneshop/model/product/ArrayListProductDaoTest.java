@@ -5,8 +5,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
+import java.util.Locale;
 
 public class ArrayListProductDaoTest
 {
@@ -18,12 +20,12 @@ public class ArrayListProductDaoTest
         productDao = ArrayListProductDao.getInstance();
         list = new ArrayList<>();
 
-        list.add(new Product(1L, "sgs", "Sama", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
-        list.add(new Product(2L, "sgt", "Sa", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
-        list.add(new Product(3L, "sgy", "Sdsv", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
-        list.add(new Product(4L, "sgh", "hi", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
-        list.add(new Product(5L, "sgj", "no", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
-        list.add(new Product(6L, "sgb", "yes", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
+        list.add(new Product(1L, "sgs", "Sam", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
+        list.add(new Product(2L, "sgt", "Sam", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
+        list.add(new Product(3L, "sgy", "Sam", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
+        list.add(new Product(4L, "sgh", "Sam", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
+        list.add(new Product(5L, "sgj", "Sam", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
+        list.add(new Product(6L, "sgb", "Sam", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
 
         list.forEach(productDao::save);
     }
@@ -46,7 +48,7 @@ public class ArrayListProductDaoTest
 
     @Test
     public void findAllProducts() {
-        List<Product> actualList = productDao.findProducts("",null, null);
+        List<Product> actualList = productDao.findProducts();
         int expectedSize = 7;
 
         Assert.assertEquals(expectedSize, actualList.size());
@@ -55,7 +57,7 @@ public class ArrayListProductDaoTest
     @Test
     public void saveProduct() {
         long id = 8L;
-        productDao.save(new Product(8L, "sga", "Sss", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
+        productDao.save(new Product(8L, "sgs", "Sam", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
         Product prod = productDao.getProduct(id);
 
         Assert.assertNotNull(prod);
@@ -68,27 +70,4 @@ public class ArrayListProductDaoTest
         productDao.delete(id);
         productDao.getProduct(id);
     }
-
-    @Test
-    public void findOneProduct() {
-        String query = "no";
-        int expectedSize = 1;
-
-        List actualList= productDao.findProducts(query,null, null);
-        int actualSize = actualList.size();
-
-        Assert.assertEquals(expectedSize, actualSize);
-    }
-
-    @Test
-    public void returnThreeProduct() {
-        String query = "Sa or no";
-        int expectedSize = 3;
-
-        List actualList = productDao.findProducts(query,null, null);
-        int actualSize = actualList.size();
-
-        Assert.assertEquals(expectedSize, actualSize);
-    }
-
 }
