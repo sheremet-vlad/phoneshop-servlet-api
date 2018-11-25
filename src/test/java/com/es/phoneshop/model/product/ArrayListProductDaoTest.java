@@ -1,12 +1,15 @@
 package com.es.phoneshop.model.product;
 
+import com.es.phoneshop.model.exception.PhoneshopAppException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
+import java.util.Locale;
 
 public class ArrayListProductDaoTest
 {
@@ -45,7 +48,7 @@ public class ArrayListProductDaoTest
     }
 
     @Test
-    public void findAllProducts() {
+    public void findAllProducts() throws PhoneshopAppException {
         List<Product> actualList = productDao.findProducts("",null, null);
         int expectedSize = 7;
 
@@ -70,7 +73,7 @@ public class ArrayListProductDaoTest
     }
 
     @Test
-    public void findOneProduct() {
+    public void findOneProduct() throws PhoneshopAppException {
         String query = "no";
         int expectedSize = 1;
 
@@ -81,7 +84,7 @@ public class ArrayListProductDaoTest
     }
 
     @Test
-    public void returnThreeProduct() {
+    public void returnThreeProduct() throws PhoneshopAppException {
         String query = "Sa or no";
         int expectedSize = 3;
 

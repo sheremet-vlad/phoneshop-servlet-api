@@ -1,5 +1,6 @@
 package com.es.phoneshop.web;
 
+import com.es.phoneshop.model.exception.PhoneshopAppException;
 import com.es.phoneshop.model.product.ArrayListProductDao;
 import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.model.product.ProductDao;
@@ -30,7 +31,12 @@ public class ProductListPageServlet extends HttpServlet {
         String sort = request.getParameter(SORT_PARAMETER);
         String order = request.getParameter(ORDER_PARAMETER);
 
-        request.setAttribute("products", productDao.findProducts(query, order, sort));
-        request.getRequestDispatcher("/WEB-INF/pages/productList.jsp").forward(request, response);
+        try {
+            request.setAttribute("products", productDao.findProducts(query, order, sort));
+            request.getRequestDispatcher("/WEB-INF/pages/productList.jsp").forward(request, response);
+        } catch (PhoneshopAppException | ServletException | IOException e) {
+            response.sendError(404, e.getMessage());
+        }
+
     }
 }

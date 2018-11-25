@@ -1,20 +1,25 @@
 package com.es.phoneshop.model.product;
 
-import com.es.phoneshop.model.enumeration.OrderEnum;
+import com.es.phoneshop.model.exception.IllegalSortArgumentException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArrayListProductDao implements ProductDao {
-    private final static String QUERY_SPLIT = " or ";
+    private final static String QUERY_SPLIT = "\\s";
     private final static String SORT_DESCRIPTION = "description";
+    private final static String SORT_PRICE = "price";
+    private final static String ORDER_DEC = "dec";
+
 
     private final List<Product> productList = new ArrayList<>();
 
     private static volatile ArrayListProductDao arrayListProductDao = null;
 
     private static final Object lock = new Object();
-
 
     private ArrayListProductDao() {
     }
@@ -42,55 +47,39 @@ public class ArrayListProductDao implements ProductDao {
     }
 
     @Override
-    public List<Product> findProducts(String query, String order, String sort) {
+    public List<Product> findProducts(String query, String order, String sort) throws IllegalSortArgumentException {
         synchronized (productList) {
-            String[] queries = query == null ? null : query.split(QUERY_SPLIT);
+            List<Product> foundProduct;
 
-            List<Product> foundProduct = productList.stream()
-                    .filter((p) -> p.getPrice() != null && p.getStock() > 0)
-                    .filter(p -> query == null || Arrays.stream(queries).anyMatch((q) -> p.getDescription().contains(q)))
-                    .collect(Collectors.toList());
+            if (query == null) {
+                foundProduct = productList.stream()
+                        .filter((p) -> p.getPrice() != null && p.getStock() > 0)
+                        .collect(Collectors.toList());
+            } else {
+                String[] queries = query.split(QUERY_SPLIT);
+                foundProduct = productList.stream()
+                        .filter((p) -> p.getPrice() != null && p.getStock() > 0)
+                        .filter(p -> Arrays.stream(queries).anyMatch((q) -> p.getDescription().contains(q)))
+                        .sorted((p, q) -> {
+                            Long s1 = Arrays.stream(queries).filter(word -> p.getDescription().contains(word)).count();
+                            Long s2 = Arrays.stream(queries).filter(word -> q.getDescription().contains(word)).count();
+                            return s2.compareTo(s1);
+                        })
+                        .collect(Collectors.toList());
+            }
 
             if (order != null && sort != null) {
                 return sortProduct(foundProduct, order, sort);
-            }
-            else {
+            } else {
                 return foundProduct;
             }
         }
     }
 
-    private List<Product> sortProduct(List<Product> list, String order, String sort) {
-        OrderEnum orderEnum = OrderEnum.valueOf(order.toUpperCase());
-        List<Product> resultList;
-
-        if (sort.equals(SORT_DESCRIPTION)) {
-            resultList = list.stream()
-                    .sorted(Comparator.comparing(Product::getDescription))
-                    .collect(Collectors.toList());
-        }
-        else {
-            resultList = list.stream()
-                    .sorted(Comparator.comparing(Product::getPrice))
-                    .collect(Collectors.toList());
-        }
-
-        if (orderEnum == OrderEnum.DEC) {
-            Collections.reverse(resultList);
-        }
-
-        return resultList;
-    }
-
     @Override
     public void save(Product product) {
-        Long id = product.getId();
-
         synchronized (productList) {
-            boolean isExist = productList.stream()
-                    .anyMatch((p) -> p.getId().equals(id));
-
-            if (!isExist) {
+            if (!isExist(product.getId())) {
                 productList.add(product);
             }
         }
@@ -99,7 +88,34 @@ public class ArrayListProductDao implements ProductDao {
     @Override
     public void delete(Long id) {
         synchronized (productList) {
-            productList.remove(getProduct(id));
+            if (!productList.removeIf(p -> p.getId().equals(id))) {
+                throw new IllegalArgumentException("There is no element with such id = " + id);
+            }
         }
+    }
+
+    private boolean isExist(Long id) {
+        return productList.stream()
+                .anyMatch((p) -> p.getId().equals(id));
+    }
+
+    private List<Product> sortProduct(List<Product> list, String order, String sort) throws IllegalSortArgumentException {
+        Comparator<Product> comparator;
+
+        if (sort.equals(SORT_DESCRIPTION)) {
+            comparator = Comparator.comparing(Product::getDescription);
+        } else if (sort.equals(SORT_PRICE)) {
+            comparator = Comparator.comparing(Product::getPrice);
+        } else {
+            throw new IllegalSortArgumentException("there are not function to sort by " + sort);
+        }
+
+        if (order.equals(ORDER_DEC)) {
+            comparator = (comparator).reversed();
+        }
+
+        return list.stream()
+                .sorted(comparator)
+                .collect(Collectors.toList());
     }
 }

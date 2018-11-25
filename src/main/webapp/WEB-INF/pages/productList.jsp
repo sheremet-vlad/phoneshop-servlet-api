@@ -26,13 +26,34 @@
         <thead>
           <tr>
             <td>Image</td>
-            <td>Description
-                <a href="${pageContext.servletContext.contextPath}/products?sort=description&order=asc&query=${param.query}">acs</a>
-                <a href="${pageContext.servletContext.contextPath}/products?sort=description&order=dec&query=${param.query}">dec</a>
+            <td>
+              Description
+              <a href="<c:url value="">
+                          <c:param name="sort" value="description"/>
+                          <c:param name="order" value="asc"/>
+                          <c:param name="query" value="${param.query}"/>
+                          </c:url>">asc
+              </a>
+              <a href="<c:url value="">
+                          <c:param name="sort" value="description"/>
+                          <c:param name="order" value="dec"/>
+                          <c:param name="query" value="${param.query}"/>
+                          </c:url>">dec
+              </a>
             </td>
             <td class="price">Price
-                <a href="${pageContext.servletContext.contextPath}/products?sort=price&order=asc&query=${param.query}">acs</a>
-                <a href="${pageContext.servletContext.contextPath}/products?sort=price&order=dec&query=${param.query}">dec</a>
+              <a href="<c:url value="">
+                          <c:param name="sort" value="price"/>
+                          <c:param name="order" value="asc"/>
+                          <c:param name="query" value="${param.query}"/>
+                          </c:url>">asc
+              </a>
+              <a href="<c:url value="">
+                          <c:param name="sort" value="price"/>
+                          <c:param name="order" value="dec"/>
+                          <c:param name="query" value="${param.query}"/>
+                          </c:url>">dec
+              </a>
             </td>
           </tr>
         </thead>
