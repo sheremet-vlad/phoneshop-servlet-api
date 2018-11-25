@@ -9,11 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
 
-public class ProductListPageServlet extends HttpServlet {
-    private final static String SEARCH_QUERY = "query";
-    private final static String SORT_PARAMETER = "sort";
-    private final static String ORDER_PARAMETER = "order";
+public class ProductDetailsPageServlet extends HttpServlet {
 
     private ProductDao productDao;
 
@@ -26,11 +27,11 @@ public class ProductListPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String query = request.getParameter(SEARCH_QUERY);
-        String sort = request.getParameter(SORT_PARAMETER);
-        String order = request.getParameter(ORDER_PARAMETER);
+        StringBuffer uri = request.getRequestURL();
+        String stringId = uri.substring(uri.lastIndexOf("/") + 1);
+        Long id = Long.parseLong(stringId);
 
-        request.setAttribute("products", productDao.findProducts(query, order, sort));
-        request.getRequestDispatcher("/WEB-INF/pages/productList.jsp").forward(request, response);
+        request.setAttribute("product", productDao.getProduct(id));
+        request.getRequestDispatcher("/WEB-INF/pages/product.jsp").forward(request, response);
     }
 }
