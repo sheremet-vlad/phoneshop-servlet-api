@@ -10,28 +10,59 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/styles/main.css">
   </head>
   <body class="product-list">
-    <header>
-      <a href="${pageContext.servletContext.contextPath}">
-        <img src="${pageContext.servletContext.contextPath}/images/logo.svg"/>
-        PhoneShop
-      </a>
-    </header>
+  <div>
+      <jsp:include page="/WEB-INF/pages/header.jsp"/>
+  </div>
     <main>
       <p>
         Welcome to Expert-Soft training!
       </p>
+      <form>
+        <input name="query" value="${param.query}">
+        <button>Search</button>
+      </form>
+      <a href="ffbbtbeeeb">Ссылка ошибка</a>
       <table>
         <thead>
           <tr>
             <td>Image</td>
-            <td>Description</td>
-            <td class="price">Price</td>
+            <td>
+              Description
+              <a href="<c:url value="">
+                          <c:param name="sort" value="description"/>
+                          <c:param name="order" value="asc"/>
+                          <c:param name="query" value="${param.query}"/>
+                          </c:url>">asc
+              </a>
+              <a href="<c:url value="">
+                          <c:param name="sort" value="description"/>
+                          <c:param name="order" value="dec"/>
+                          <c:param name="query" value="${param.query}"/>
+                          </c:url>">dec
+              </a>
+            </td>
+            <td class="price">Price
+              <a href="<c:url value="">
+                          <c:param name="sort" value="price"/>
+                          <c:param name="order" value="asc"/>
+                          <c:param name="query" value="${param.query}"/>
+                          </c:url>">asc
+              </a>
+              <a href="<c:url value="">
+                          <c:param name="sort" value="price"/>
+                          <c:param name="order" value="dec"/>
+                          <c:param name="query" value="${param.query}"/>
+                          </c:url>">dec
+              </a>
+            </td>
           </tr>
         </thead>
         <c:forEach var="product" items="${products}">
           <tr>
             <td>
-              <img class="product-tile" src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${product.imageUrl}">
+              <a href="${pageContext.servletContext.contextPath}/products/${product.id}">
+                  <img class="product-tile" src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${product.imageUrl}">
+              </a>
             </td>
             <td>${product.description}</td>
             <td class="price">
@@ -41,5 +72,9 @@
         </c:forEach>
       </table>
     </main>
+
+    <div>
+        <jsp:include page="/WEB-INF/pages/footer.jsp"/>
+    </div>
   </body>
 </html>
