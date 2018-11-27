@@ -34,7 +34,7 @@ public class ProductListPageServlet extends HttpServlet {
         try {
             request.setAttribute("products", productDao.findProducts(query, order, sort));
             request.getRequestDispatcher("/WEB-INF/pages/productList.jsp").forward(request, response);
-        } catch (PhoneshopAppException | ServletException | IOException e) {
+        } catch (IOException e) {
             response.sendError(404, e.getMessage());
         }
 
