@@ -22,18 +22,18 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        StringBuffer uri = request.getRequestURL();
-        String stringId = uri.substring(uri.lastIndexOf("/") + 1);
+        String uri = request.getRequestURI();
+        int indexOfIdInUri = request.getContextPath().length() + request.getServletPath().length() + 1;
+        String stringId = uri.substring(indexOfIdInUri);
         Long id;
 
         try {
             id = Long.parseLong(stringId);
             request.setAttribute("product", productDao.getProduct(id));
             request.getRequestDispatcher("/WEB-INF/pages/product.jsp").forward(request, response);
-        } catch (ClassCastException | IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             response.sendError(404, e.getMessage());
         }
-
 
     }
 }

@@ -16,7 +16,7 @@ public class SampleDataServletContextListener implements ServletContextListener 
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         String insertSampleData = servletContextEvent.getServletContext().getInitParameter(INSERT_SAMPLE_DATA_PARAMETER);
 
-        if (insertSampleData != null && Boolean.valueOf(insertSampleData)) {
+        if (Boolean.valueOf(insertSampleData)) {
             ArrayListProductDao productDao = ArrayListProductDao.getInstance();
 
             List<Product> result = new ArrayList<>();

@@ -1,7 +1,5 @@
 package com.es.phoneshop.model.product;
 
-import com.es.phoneshop.model.exception.IllegalSortArgumentException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -23,7 +21,6 @@ public class ArrayListProductDao implements ProductDao {
 
     private ArrayListProductDao() {
     }
-
 
     public static ArrayListProductDao getInstance() {
         if (arrayListProductDao == null) {
@@ -47,18 +44,15 @@ public class ArrayListProductDao implements ProductDao {
     }
 
     @Override
-    public List<Product> findProducts(String query, String order, String sort) throws IllegalSortArgumentException {
+    public List<Product> findProducts(String query, String order, String sort) {
         synchronized (productList) {
-            List<Product> foundProduct;
+            List<Product> foundProduct = productList.stream()
+                    .filter((p) -> p.getPrice() != null && p.getStock() > 0)
+                    .collect(Collectors.toList());
 
-            if (query == null) {
-                foundProduct = productList.stream()
-                        .filter((p) -> p.getPrice() != null && p.getStock() > 0)
-                        .collect(Collectors.toList());
-            } else {
+            if (query != null) {
                 String[] queries = query.split(QUERY_SPLIT);
                 foundProduct = productList.stream()
-                        .filter((p) -> p.getPrice() != null && p.getStock() > 0)
                         .filter(p -> Arrays.stream(queries).anyMatch((q) -> p.getDescription().contains(q)))
                         .sorted((p, q) -> {
                             Long s1 = Arrays.stream(queries).filter(word -> p.getDescription().contains(word)).count();
@@ -99,7 +93,7 @@ public class ArrayListProductDao implements ProductDao {
                 .anyMatch((p) -> p.getId().equals(id));
     }
 
-    private List<Product> sortProduct(List<Product> list, String order, String sort) throws IllegalSortArgumentException {
+    private List<Product> sortProduct(List<Product> list, String order, String sort) {
         Comparator<Product> comparator;
 
         if (sort.equals(SORT_DESCRIPTION)) {
@@ -107,7 +101,7 @@ public class ArrayListProductDao implements ProductDao {
         } else if (sort.equals(SORT_PRICE)) {
             comparator = Comparator.comparing(Product::getPrice);
         } else {
-            throw new IllegalSortArgumentException("there are not function to sort by " + sort);
+            return list;
         }
 
         if (order.equals(ORDER_DEC)) {

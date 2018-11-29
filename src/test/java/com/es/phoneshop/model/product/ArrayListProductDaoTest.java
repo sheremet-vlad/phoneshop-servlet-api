@@ -48,7 +48,7 @@ public class ArrayListProductDaoTest
     }
 
     @Test
-    public void findAllProducts() throws PhoneshopAppException {
+    public void findAllProducts() {
         List<Product> actualList = productDao.findProducts("",null, null);
         int expectedSize = 7;
 
@@ -73,7 +73,7 @@ public class ArrayListProductDaoTest
     }
 
     @Test
-    public void findOneProduct() throws PhoneshopAppException {
+    public void findOneProduct() {
         String query = "no";
         int expectedSize = 1;
 
@@ -84,11 +84,21 @@ public class ArrayListProductDaoTest
     }
 
     @Test
-    public void returnThreeProduct() throws PhoneshopAppException {
+    public void returnThreeProduct() {
         String query = "Sa or no";
         int expectedSize = 3;
 
         List actualList = productDao.findProducts(query,null, null);
+        int actualSize = actualList.size();
+
+        Assert.assertEquals(expectedSize, actualSize);
+    }
+
+    @Test
+    public void returnAllProduct() {
+        int expectedSize = 6;
+
+        List actualList = productDao.findProducts(null,null, null);
         int actualSize = actualList.size();
 
         Assert.assertEquals(expectedSize, actualSize);
