@@ -22,7 +22,6 @@ public class ArrayListProductDao implements ProductDao {
     private ArrayListProductDao() {
     }
 
-
     public static ArrayListProductDao getInstance() {
         if (arrayListProductDao == null) {
             synchronized (lock) {
