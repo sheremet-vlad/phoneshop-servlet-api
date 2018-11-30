@@ -19,9 +19,14 @@
                     <td>
                         <img class="product-tile" src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${product.imageUrl}">
                     </td>
-                    <td>${product.description}</td>
-                    <td class="price">
-                        <fmt:formatNumber value="${product.price}" type="currency" currencySymbol="${product.currency.symbol}"/>
+                    <td>
+                        <h1>${product.description}</h1>
+                        <p>Code: ${product.code}</p>
+                        <p>Price: <fmt:formatNumber value="${product.price}" type="currency" currencySymbol="${product.currency.symbol}"/></p>
+                        <p>Stock: ${product.stock}</p>
+                        <form>
+                            <button>Submit</button>
+                        </form>
                     </td>
                 </tr>
             </table>
