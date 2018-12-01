@@ -32,3 +32,15 @@ img.product-tile {
 body.product-list {
 
 }
+
+.error {
+  color: red;
+}
+
+.success {
+  color: green;
+}
+
+.number {
+  text-align: right;
+}
