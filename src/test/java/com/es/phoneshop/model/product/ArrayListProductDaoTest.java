@@ -104,4 +104,63 @@ public class ArrayListProductDaoTest
         Assert.assertEquals(expectedSize, actualSize);
     }
 
+    @Test
+    public void returnAscSortedByPriceProducts() {
+        List<Product> actualList = productDao.findProducts(null,"asc", "price");
+
+        boolean sorted = true;
+        for(int i = 1; i < actualList.size(); i++) {
+            if(actualList.get(i - 1).getPrice().compareTo(actualList.get(i).getPrice()) < 0){
+                sorted = false;
+                break;
+            }
+        }
+
+        Assert.assertTrue(sorted);
+    }
+
+    @Test
+    public void returnDecSortedByPriceProducts() {
+        List<Product> actualList = productDao.findProducts(null,"dec", "price");
+
+        boolean sorted = true;
+        for(int i = 1; i < actualList.size(); i++) {
+            if(actualList.get(i - 1).getPrice().compareTo(actualList.get(i).getPrice()) > 0){
+                sorted = false;
+                break;
+            }
+        }
+
+        Assert.assertTrue(sorted);
+    }
+
+    @Test
+    public void returnAscSortedByDescriptionProducts() {
+        List<Product> actualList = productDao.findProducts(null,"asc", "description");
+
+        boolean sorted = true;
+        for(int i = 1; i < actualList.size(); i++) {
+            if(actualList.get(i - 1).getDescription().compareTo(actualList.get(i).getDescription()) > 0){
+                sorted = false;
+                break;
+            }
+        }
+
+        Assert.assertTrue(sorted);
+    }
+
+    @Test
+    public void returnDecSortedByDescriptionProducts() {
+        List<Product> actualList = productDao.findProducts(null,"dec", "description");
+
+        boolean sorted = true;
+        for(int i = 1; i < actualList.size(); i++) {
+            if(actualList.get(i - 1).getDescription().compareTo(actualList.get(i).getDescription()) < 0){
+                sorted = false;
+                break;
+            }
+        }
+
+        Assert.assertTrue(sorted);
+    }
 }

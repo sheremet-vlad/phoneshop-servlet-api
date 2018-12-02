@@ -10,7 +10,6 @@ import com.es.phoneshop.model.product.ProductDao;
 import com.es.phoneshop.model.viewedProduct.ViewedProductList;
 import com.es.phoneshop.model.viewedProduct.ViewedProductService;
 import com.es.phoneshop.model.viewedProduct.ViewedProductServiceImpl;
-import jdk.nashorn.internal.ir.RuntimeNode;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +23,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
     private final static String VIEWED_PRODUCT_ATTRIBUTE = "viewedProducts";
     private final static String PRODUCT_ATTRIBUTE = "product";
     private final static String CART_ATTRIBUTE = "cart";
-    private final static String QUANTITY_ERROR_ATTRIBUTE= "quantityError";
+    private final static String QUANTITY_ERROR_ATTRIBUTE = "quantityError";
     private final static String QUANTITY_PARAMETER = "quantity";
 
     private ProductDao productDao;
@@ -49,7 +48,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
             request.setAttribute(VIEWED_PRODUCT_ATTRIBUTE, viewedList);
             request.getRequestDispatcher("/WEB-INF/pages/product.jsp").forward(request, response);
         } catch (IllegalArgumentException e) {
-            response.sendError(404, e.getMessage());
+            response.sendError(404);
         }
 
     }

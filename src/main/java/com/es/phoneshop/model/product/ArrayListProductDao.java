@@ -112,4 +112,11 @@ public class ArrayListProductDao implements ProductDao {
                 .sorted(comparator)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteAll() {
+        synchronized (productList) {
+            productList.clear();
+        }
+    }
 }

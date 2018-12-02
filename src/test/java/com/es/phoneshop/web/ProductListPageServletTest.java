@@ -1,5 +1,7 @@
 package com.es.phoneshop.web;
 
+import com.es.phoneshop.model.viewedProduct.ViewedProductList;
+import com.es.phoneshop.model.viewedProduct.ViewedProductService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +12,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -26,12 +29,19 @@ public class ProductListPageServletTest {
     private HttpServletResponse response;
     @Mock
     private RequestDispatcher requestDispatcher;
+    @Mock
+    private ViewedProductService viewedProductService;
+    @Mock
+    private ViewedProductList viewedProductList;
+    @Mock
+    private HttpSession httpSession;
 
     private ProductListPageServlet servlet = new ProductListPageServlet();
 
     @Before
     public void setup(){
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+        when(request.getSession()).thenReturn(httpSession);
     }
 
     @Test
