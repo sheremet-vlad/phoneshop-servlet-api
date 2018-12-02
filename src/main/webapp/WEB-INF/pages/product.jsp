@@ -39,6 +39,9 @@
                 </tr>
             </table>
         </main>
+
+        <jsp:include page="/WEB-INF/pages/recentlyViewed.jsp"/>
+
         <div>
             <jsp:include page="/WEB-INF/pages/footer.jsp"/>
         </div>

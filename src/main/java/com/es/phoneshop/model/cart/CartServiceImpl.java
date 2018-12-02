@@ -42,7 +42,9 @@ public class CartServiceImpl implements CartService {
     @Override
     public void addToCart(Cart cart, Product product, Integer quantity) throws IllegalStockArgumentException {
         int currentStock = product.getStock();
-        if(currentStock < quantity) throw new IllegalStockArgumentException();
+        if(currentStock < quantity) {
+            throw new IllegalStockArgumentException();
+        }
 
         Optional<CartItem> optCartItem = cart.getCartItems().stream().
                 filter(cartItem -> product.getId().equals(cartItem.getProduct().getId()))

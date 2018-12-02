@@ -44,3 +44,7 @@ body.product-list {
 .number {
   text-align: right;
 }
+
+.viewed-product {
+  margin: 20px 0;
+}

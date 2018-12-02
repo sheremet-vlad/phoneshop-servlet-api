@@ -60,7 +60,7 @@
         <c:forEach var="product" items="${products}">
           <tr>
             <td>
-              <a href="${pageContext.servletContext.contextPath}/products/${product.id}">
+              <a href="${pageContext.servletContext.contextPath}/products/${product.id}" methods="POST">
                   <img class="product-tile" src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${product.imageUrl}">
               </a>
             </td>
@@ -72,6 +72,8 @@
         </c:forEach>
       </table>
     </main>
+
+    <jsp:include page="/WEB-INF/pages/recentlyViewed.jsp"/>
 
     <div>
         <jsp:include page="/WEB-INF/pages/footer.jsp"/>
