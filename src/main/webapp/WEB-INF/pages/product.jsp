@@ -14,18 +14,34 @@
             <jsp:include page="/WEB-INF/pages/header.jsp"/>
         </div>
         <main>
+            <p>Cart: ${cart}</p>
             <table>
                 <tr>
                     <td>
                         <img class="product-tile" src="https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/${product.imageUrl}">
                     </td>
-                    <td>${product.description}</td>
-                    <td class="price">
-                        <fmt:formatNumber value="${product.price}" type="currency" currencySymbol="${product.currency.symbol}"/>
+                    <td>
+                        <h1>${product.description}</h1>
+                        <p>Code: ${product.code}</p>
+                        <p>Price: <fmt:formatNumber value="${product.price}" type="currency" currencySymbol="${product.currency.symbol}"/></p>
+                        <p>Stock: ${product.stock}</p>
+                        <form method="post" action="${pageContext.servletContext.contextPath}/products/${product.id}">
+                            Quantity: <input name="quantity" value="${not empty param.quantity ? param.quantity : 1}" class="number">
+                            <button>Add to cart</button>
+                            <c:if test="${not empty param.message}">
+                                <p class="success">${param.message}</p>
+                            </c:if>
+                            <c:if test="${not empty quantityError}">
+                                <p class="error">${quantityError}</p>
+                            </c:if>
+                        </form>
                     </td>
                 </tr>
             </table>
         </main>
+
+        <jsp:include page="/WEB-INF/pages/recentlyViewed.jsp"/>
+
         <div>
             <jsp:include page="/WEB-INF/pages/footer.jsp"/>
         </div>
