@@ -42,7 +42,8 @@ public class CartServiceImpl implements CartService {
     @Override
     public void addToCart(Cart cart, Product product, Integer quantity) throws IllegalStockArgumentException {
         int currentStock = product.getStock();
-        if(currentStock < quantity) {
+
+        if (isQuantityNotValid(currentStock, quantity)) {
             throw new IllegalStockArgumentException();
         }
 
@@ -62,5 +63,11 @@ public class CartServiceImpl implements CartService {
             cart.getCartItems().add(new CartItem(product, quantity));
         }
 
+    }
+
+    private boolean isQuantityNotValid(Integer currentStock, Integer quantity) {
+        return quantity != null
+                && currentStock < quantity
+                && quantity <= 0;
     }
 }

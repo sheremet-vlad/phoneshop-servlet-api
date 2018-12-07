@@ -10,6 +10,7 @@ import com.es.phoneshop.model.product.ProductDao;
 import com.es.phoneshop.model.viewedProduct.ViewedProductList;
 import com.es.phoneshop.model.viewedProduct.ViewedProductService;
 import com.es.phoneshop.model.viewedProduct.ViewedProductServiceImpl;
+import com.es.phoneshop.util.ProductLoader;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +30,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
     private ProductDao productDao;
     private CartService cartService;
     private ViewedProductService viewedProductService;
+    private ProductLoader productLoader;
 
     @Override
     public void init() throws ServletException {
@@ -37,12 +39,13 @@ public class ProductDetailsPageServlet extends HttpServlet {
         productDao = ArrayListProductDao.getInstance();
         cartService = CartServiceImpl.getInstance();
         viewedProductService = ViewedProductServiceImpl.getInstance();
+        productLoader = new ProductLoader();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Product product = loadProduct(request);
+            Product product = productLoader.loadProductFromURL(request);
             List<Product> viewedList = loadViewedList(request);
             request.setAttribute(PRODUCT_ATTRIBUTE, product);
             request.setAttribute(VIEWED_PRODUCT_ATTRIBUTE, viewedList);
@@ -55,7 +58,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Product product = loadProduct(request);
+        Product product = productLoader.loadProductFromURL(request);
         HttpSession httpSession = request.getSession();
         Cart cart = cartService.getCart(httpSession);
         List<Product> viewedList = loadViewedList(request);
@@ -73,27 +76,17 @@ public class ProductDetailsPageServlet extends HttpServlet {
             request.setAttribute(QUANTITY_ERROR_ATTRIBUTE, "Not a number");
         }
 
-        if (quantity != null) {
-            try {
-                cartService.addToCart(cart, product, quantity);
-                response.sendRedirect(request.getRequestURI() + "?message=add to cart Successfully");
-                isErrorInStockCount = false;
-            } catch (IllegalStockArgumentException e) {
-                request.setAttribute(QUANTITY_ERROR_ATTRIBUTE, "Not enough stocks");
-            }
+        try {
+            cartService.addToCart(cart, product, quantity);
+            response.sendRedirect(request.getRequestURI() + "?message=add to cart Successfully");
+            isErrorInStockCount = false;
+        } catch (IllegalStockArgumentException e) {
+            request.setAttribute(QUANTITY_ERROR_ATTRIBUTE, "Not enough stocks");
         }
-
+        
         if (isErrorInStockCount) {
             request.getRequestDispatcher("/WEB-INF/pages/product.jsp").forward(request, response);
         }
-    }
-
-    private Product loadProduct(HttpServletRequest request) throws IllegalArgumentException {
-        String uri = request.getRequestURI();
-        int indexOfIdInUri = request.getContextPath().length() + request.getServletPath().length() + 1;
-        String stringId = uri.substring(indexOfIdInUri);
-        Long id = Long.parseLong(stringId);
-        return productDao.getProduct(id);
     }
 
     private List<Product> loadViewedList(HttpServletRequest request) {

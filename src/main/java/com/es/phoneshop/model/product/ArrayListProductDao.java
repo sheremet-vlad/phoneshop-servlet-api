@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 public class ArrayListProductDao implements ProductDao {
     private final static String QUERY_SPLIT = "\\s";
     private final static String SORT_DESCRIPTION = "description";
-    private final static String SORT_PRICE = "price";
     private final static String ORDER_DEC = "dec";
 
 
@@ -88,6 +87,13 @@ public class ArrayListProductDao implements ProductDao {
         }
     }
 
+    @Override
+    public void deleteAll() {
+        synchronized (productList) {
+            productList.clear();
+        }
+    }
+
     private boolean isExist(Long id) {
         return productList.stream()
                 .anyMatch((p) -> p.getId().equals(id));
@@ -98,10 +104,8 @@ public class ArrayListProductDao implements ProductDao {
 
         if (sort.equals(SORT_DESCRIPTION)) {
             comparator = Comparator.comparing(Product::getDescription);
-        } else if (sort.equals(SORT_PRICE)) {
-            comparator = Comparator.comparing(Product::getPrice);
         } else {
-            return list;
+            comparator = Comparator.comparing(Product::getPrice);
         }
 
         if (order.equals(ORDER_DEC)) {
@@ -111,12 +115,5 @@ public class ArrayListProductDao implements ProductDao {
         return list.stream()
                 .sorted(comparator)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void deleteAll() {
-        synchronized (productList) {
-            productList.clear();
-        }
     }
 }
