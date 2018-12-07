@@ -83,7 +83,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
         } catch (IllegalStockArgumentException e) {
             request.setAttribute(QUANTITY_ERROR_ATTRIBUTE, "Not enough stocks");
         }
-        
+
         if (isErrorInStockCount) {
             request.getRequestDispatcher("/WEB-INF/pages/product.jsp").forward(request, response);
         }
