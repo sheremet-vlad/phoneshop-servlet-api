@@ -49,7 +49,7 @@ public class ArrayListProductDao implements ProductDao {
     public List<Product> findProducts(String query, String order, String sort) {
         synchronized (productList) {
             Predicate<Product> isValidProduct = product -> product.getPrice() != null && product.getStock() > 0;
-            
+
             List<Product> foundProduct = productList.stream()
                     .filter(isValidProduct)
                     .collect(Collectors.toList());
