@@ -28,6 +28,7 @@ public class CartServiceImplTest {
         product1 = new Product(2L, "sgs", "Sama", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https");
     }
 
+    @Test
     public void testAddCartItemToCart() throws IllegalStockArgumentException {
         cartService.addToCart(cart,product,1);
 
@@ -39,6 +40,7 @@ public class CartServiceImplTest {
         Assert.assertEquals(expectedSize, actualSize);
     }
 
+    @Test
     public void testAddTwoItemsToCart() throws IllegalStockArgumentException {
         cartService.addToCart(cart,product,1);
         cartService.addToCart(cart,product1,2);
@@ -54,5 +56,18 @@ public class CartServiceImplTest {
     @Test(expected = IllegalStockArgumentException.class)
     public void shouldReturnExceptionWhenQuantityMoreThenStock() throws IllegalStockArgumentException {
         cartService.addToCart(cart,product,1000);
+    }
+
+    @Test
+    public void testDeleteProduct() throws IllegalStockArgumentException{
+        cartService.addToCart(cart, product, 1);
+        cartService.addToCart(cart, product1, 2);
+
+        cartService.delete(cart, product);
+
+        int expectedSize = 1;
+        int actualSize = cart.getCartItems().size();
+
+        Assert.assertEquals(expectedSize, actualSize);
     }
 }

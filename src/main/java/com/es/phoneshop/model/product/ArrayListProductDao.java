@@ -1,5 +1,6 @@
 package com.es.phoneshop.model.product;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -9,7 +10,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class ArrayListProductDao implements ProductDao {
+public class ArrayListProductDao implements ProductDao, Serializable {
     private final static String QUERY_SPLIT = "\\s";
     private final static String SORT_DESCRIPTION = "description";
     private final static String ORDER_DEC = "dec";
