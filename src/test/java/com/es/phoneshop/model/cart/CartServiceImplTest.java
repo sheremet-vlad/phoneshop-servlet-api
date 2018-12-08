@@ -70,4 +70,26 @@ public class CartServiceImplTest {
 
         Assert.assertEquals(expectedSize, actualSize);
     }
+
+    @Test
+    public void testUpdateProductQuantity() throws IllegalStockArgumentException{
+        cartService.addToCart(cart, product, 1);
+
+        cartService.updateCart(cart, product, 2);
+
+        int expectedQuantity = 2;
+        int actualQuantity = cart.getCartItems().get(0).getQuantity();
+
+        Assert.assertEquals(expectedQuantity, actualQuantity);
+    }
+
+    @Test(expected = IllegalStockArgumentException.class)
+    public void shouldReturnExceptionWhenUpdatingQuantityMoreThenStock() throws IllegalStockArgumentException {
+        cartService.addToCart(cart,product,1000);
+    }
+
+    @Test(expected = IllegalStockArgumentException.class)
+    public void shouldReturnExceptionWhenUpddatingQuantityIsNill() throws IllegalStockArgumentException {
+        cartService.addToCart(cart,product,null);
+    }
 }
