@@ -37,7 +37,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
         cartService = CartServiceImpl.getInstance();
         viewedProductService = ViewedProductServiceImpl.getInstance();
-        productLoader = new ProductLoader();
+        productLoader = ProductLoader.getInstance();
     }
 
     @Override

@@ -89,7 +89,7 @@ public class CartServiceImplTest {
     }
 
     @Test(expected = IllegalStockArgumentException.class)
-    public void shouldReturnExceptionWhenUpddatingQuantityIsNill() throws IllegalStockArgumentException {
+    public void shouldReturnExceptionWhenUpdatingQuantityIsNull() throws IllegalStockArgumentException {
         cartService.addToCart(cart,product,null);
     }
 }

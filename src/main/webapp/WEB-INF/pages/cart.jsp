@@ -7,10 +7,13 @@
     <jsp:useBean id="cart" type="com.es.phoneshop.model.cart.Cart" scope="request"/>
 
     <form method="post" action="${pageContext.servletContext.contextPath}/cart">
-        <button>Update cart</button>
-    <c:if test="${not empty param.message}">
-        <p class="success">${param.message}</p>
-    </c:if>
+        <c:if test="${not empty cart.cartItems}">
+            <button>Update cart</button>
+        </c:if>
+
+        <c:if test="${not empty param.message}">
+            <p class="success">${param.message}</p>
+        </c:if>
 
         <table>
             <thead>
@@ -44,7 +47,9 @@
                         </c:if>
                     </td>
                     <td>
-                        <button formaction="${pageContext.servletContext.contextPath}/cart/delete/${item.product.id}">Delete</button>
+                        <button formaction="${pageContext.servletContext.contextPath}/cart/delete/${item.product.id}">
+                            Delete
+                        </button>
                     </td>
 
                 </tr>

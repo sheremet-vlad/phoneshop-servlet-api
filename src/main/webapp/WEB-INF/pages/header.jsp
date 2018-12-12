@@ -10,4 +10,10 @@
         <img src="${pageContext.servletContext.contextPath}/images/logo.svg"/>
         PhoneShop
     </a>
+
+    <div class="menu">
+        <a href="${pageContext.servletContext.contextPath}/cart">Cart</a>
+    </div>
+
+    <div class="clearfix"></div>
 </header>

@@ -19,32 +19,13 @@
             <td>Image</td>
             <td>
                 Description
-                <a href="<c:url value="">
-                          <c:param name="sort" value="description"/>
-                          <c:param name="order" value="asc"/>
-                          <c:param name="query" value="${param.query}"/>
-                          </c:url>">asc
-                </a>
-                <a href="<c:url value="">
-                          <c:param name="sort" value="description"/>
-                          <c:param name="order" value="dec"/>
-                          <c:param name="query" value="${param.query}"/>
-                          </c:url>">dec
-                </a>
+                <tags:sortLink text="asc" sort="description" order="asc" query="${param.query}"/>
+                <tags:sortLink text="dec" sort="description" order="dec" query="${param.query}"/>
             </td>
-            <td class="price">Price
-                <a href="<c:url value="">
-                          <c:param name="sort" value="price"/>
-                          <c:param name="order" value="asc"/>
-                          <c:param name="query" value="${param.query}"/>
-                          </c:url>">asc
-                </a>
-                <a href="<c:url value="">
-                          <c:param name="sort" value="price"/>
-                          <c:param name="order" value="dec"/>
-                          <c:param name="query" value="${param.query}"/>
-                          </c:url>">dec
-                </a>
+            <td class="price">
+                Price
+                <tags:sortLink text="asc" sort="price" order="asc" query="${param.query}"/>
+                <tags:sortLink text="dec" sort="price" order="dec" query="${param.query}"/>
             </td>
         </tr>
         </thead>
@@ -58,8 +39,7 @@
                 </td>
                 <td>${product.description}</td>
                 <td class="price">
-                    <fmt:formatNumber value="${product.price}" type="currency"
-                                      currencySymbol="${product.currency.symbol}"/>
+                    <fmt:formatNumber value="${product.price}" type="currency" currencySymbol="${product.currency.symbol}"/>
                 </td>
             </tr>
         </c:forEach>

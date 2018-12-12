@@ -23,7 +23,7 @@ public class DeleteCartItemServlet extends HttpServlet {
         super.init();
 
         cartService = CartServiceImpl.getInstance();
-        productLoader = new ProductLoader();
+        productLoader = ProductLoader.getInstance();
     }
 
     @Override
