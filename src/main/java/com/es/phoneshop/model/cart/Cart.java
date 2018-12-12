@@ -1,13 +1,11 @@
 package com.es.phoneshop.model.cart;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Objects;
 
-public class Cart {
+public class Cart implements Serializable {
     private List<CartItem> cartItems = new ArrayList<>();
 
     public List<CartItem> getCartItems() {
@@ -21,5 +19,18 @@ public class Cart {
     @Override
     public String toString() {
         return String.valueOf(cartItems);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cart cart = (Cart) o;
+        return Objects.equals(cartItems, cart.cartItems);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cartItems);
     }
 }

@@ -12,6 +12,18 @@ header img {
   max-width: 64px;
 }
 
+.menu {
+  float: right;
+  font-size: 50px;
+  margin: 20px 15px 0 0;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 table {
   border-collapse: collapse;
   border : 1px solid gray;

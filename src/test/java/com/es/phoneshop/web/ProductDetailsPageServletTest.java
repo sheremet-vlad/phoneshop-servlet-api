@@ -4,6 +4,7 @@ import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.model.product.ProductDao;
 import com.es.phoneshop.model.viewedProduct.ViewedProductList;
 import com.es.phoneshop.model.viewedProduct.ViewedProductService;
+import com.es.phoneshop.util.ProductLoader;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +18,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.Locale;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
@@ -42,12 +46,12 @@ public class ProductDetailsPageServletTest {
     private RequestDispatcher requestDispatcher;
     @Mock
     private Product product;
-
+    @Mock
+    private ProductLoader productLoader;
 
     @Before
     public void setup() {
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
-        when(productDao.getProduct(anyLong())).thenReturn(product);
         when(viewedProductService.getViewedProductList(any())).thenReturn(viewedProductList);
     }
 
@@ -58,24 +62,11 @@ public class ProductDetailsPageServletTest {
 
     @Test
     public void testDoGetValidProduct() throws ServletException, IOException {
-        when(request.getRequestURI()).thenReturn("/phoneshop-servlet-api/products/1");
-        when(request.getContextPath()).thenReturn("/phoneshop-servlet-api");
-        when(request.getServletPath()).thenReturn("/products");
-
+        when(productLoader.loadProductFromURL(request)).thenReturn(product);
         servlet.doGet(request, response);
 
         verify(request).setAttribute("product", product);
         verify(requestDispatcher).forward(request, response);
     }
 
-    @Test
-    public void testDoGetProductNotExist() throws ServletException, IOException {
-        when(request.getRequestURI()).thenReturn("http://localhost:8080/phoneshop-servlet-api/products/1svsdv");
-        when(request.getContextPath()).thenReturn("/phoneshop-servlet-api");
-        when(request.getServletPath()).thenReturn("/products");
-
-        servlet.doGet(request, response);
-
-        verify(response).sendError(404);
-    }
 }

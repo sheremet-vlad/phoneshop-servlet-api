@@ -24,7 +24,7 @@ public class VeiwedProductsFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         viewedProductService = ViewedProductServiceImpl.getInstance();
-        productLoader = new ProductLoader();
+        productLoader = ProductLoader.getInstance();
     }
 
     @Override

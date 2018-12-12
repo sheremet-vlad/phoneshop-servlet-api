@@ -27,7 +27,6 @@ public class ProductDetailsPageServlet extends HttpServlet {
     private final static String QUANTITY_ERROR_ATTRIBUTE = "quantityError";
     private final static String QUANTITY_PARAMETER = "quantity";
 
-    private ProductDao productDao;
     private CartService cartService;
     private ViewedProductService viewedProductService;
     private ProductLoader productLoader;
@@ -36,10 +35,9 @@ public class ProductDetailsPageServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
 
-        productDao = ArrayListProductDao.getInstance();
         cartService = CartServiceImpl.getInstance();
         viewedProductService = ViewedProductServiceImpl.getInstance();
-        productLoader = new ProductLoader();
+        productLoader = ProductLoader.getInstance();
     }
 
     @Override
