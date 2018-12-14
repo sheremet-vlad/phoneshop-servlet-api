@@ -1,7 +1,9 @@
 package com.es.phoneshop.model.cart;
 
-import com.es.phoneshop.model.exception.IllegalStockArgumentException;
+import com.es.phoneshop.exception.IllegalStockArgumentException;
 import com.es.phoneshop.model.product.Product;
+import com.es.phoneshop.service.CartService;
+import com.es.phoneshop.service.CartServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,9 +12,6 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
-
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
 
 public class CartServiceImplTest {
 

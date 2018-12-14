@@ -1,6 +1,8 @@
-package com.es.phoneshop.model.cart;
+package com.es.phoneshop.service;
 
-import com.es.phoneshop.model.exception.IllegalStockArgumentException;
+import com.es.phoneshop.model.cart.Cart;
+import com.es.phoneshop.model.cart.CartItem;
+import com.es.phoneshop.exception.IllegalStockArgumentException;
 import com.es.phoneshop.model.product.Product;
 
 import javax.servlet.http.HttpSession;

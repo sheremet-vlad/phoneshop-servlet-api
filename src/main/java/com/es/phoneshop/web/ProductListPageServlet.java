@@ -1,11 +1,11 @@
 package com.es.phoneshop.web;
 
-import com.es.phoneshop.model.product.ArrayListProductDao;
+import com.es.phoneshop.dao.productDao.ArrayListProductDao;
 import com.es.phoneshop.model.product.Product;
-import com.es.phoneshop.model.product.ProductDao;
+import com.es.phoneshop.dao.productDao.ProductDao;
 import com.es.phoneshop.model.viewedProduct.ViewedProductList;
-import com.es.phoneshop.model.viewedProduct.ViewedProductService;
-import com.es.phoneshop.model.viewedProduct.ViewedProductServiceImpl;
+import com.es.phoneshop.service.ViewedProductService;
+import com.es.phoneshop.service.ViewedProductServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

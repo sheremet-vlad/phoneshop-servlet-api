@@ -1,9 +1,9 @@
 package com.es.phoneshop.web;
 
 import com.es.phoneshop.model.product.Product;
-import com.es.phoneshop.model.product.ProductDao;
+import com.es.phoneshop.dao.productDao.ProductDao;
 import com.es.phoneshop.model.viewedProduct.ViewedProductList;
-import com.es.phoneshop.model.viewedProduct.ViewedProductService;
+import com.es.phoneshop.service.ViewedProductService;
 import com.es.phoneshop.util.ProductLoader;
 import org.junit.After;
 import org.junit.Before;
@@ -18,9 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.Locale;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;

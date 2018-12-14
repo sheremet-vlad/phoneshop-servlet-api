@@ -1,6 +1,7 @@
 package com.es.phoneshop.model.product;
 
-import com.es.phoneshop.model.exception.PhoneshopAppException;
+import com.es.phoneshop.dao.productDao.ArrayListProductDao;
+import com.es.phoneshop.dao.productDao.ProductDao;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
