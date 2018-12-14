@@ -11,4 +11,5 @@ public interface CartService {
     void addToCart(Cart cart, Product product, Integer quantity) throws IllegalStockArgumentException;
     void updateCart(Cart cart, Product product, Integer quantity) throws IllegalStockArgumentException, NoSuchElementException;
     void delete(Cart cart, Product product);
+    void recalculateCart(Cart cart);
 }

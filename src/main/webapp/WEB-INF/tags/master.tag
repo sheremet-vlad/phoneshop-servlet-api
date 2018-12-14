@@ -1,5 +1,6 @@
 <%@attribute name="pageTitle" type="java.lang.String" required="true" %>
 <%@attribute name="pageClass" type="java.lang.String" required="false" %>
+<%@attribute name="isShowCart" type="java.lang.Boolean" required="true" %>
 
 <html>
 <head>
@@ -9,7 +10,9 @@
 </head>
 <body class="${pageClass}">
 <div>
-    <jsp:include page="/WEB-INF/pages/header.jsp"/>
+    <jsp:include page="/WEB-INF/pages/header.jsp">
+        <jsp:param name="isShowCart" value="${isShowCart}"/>
+    </jsp:include>
 </div>
 <main>
     <jsp:doBody/>

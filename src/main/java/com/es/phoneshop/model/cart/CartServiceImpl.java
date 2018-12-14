@@ -4,6 +4,7 @@ import com.es.phoneshop.model.exception.IllegalStockArgumentException;
 import com.es.phoneshop.model.product.Product;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -65,6 +66,7 @@ public class CartServiceImpl implements CartService {
             cart.getCartItems().add(new CartItem(product, quantity));
         }
 
+        recalculateCart(cart);
     }
 
     private boolean isQuantityNotValid(Integer currentStock, Integer quantity) {
@@ -91,6 +93,8 @@ public class CartServiceImpl implements CartService {
         } else {
             throw new NoSuchElementException();
         }
+
+        recalculateCart(cart);
     }
 
     @Override
@@ -98,5 +102,14 @@ public class CartServiceImpl implements CartService {
         List<CartItem> cartItems = cart.getCartItems();
         cartItems.removeIf(cartItem -> cartItem.getProduct().equals(product));
         cart.setCartItems(cartItems);
+        recalculateCart(cart);
+    }
+
+    @Override
+    public void recalculateCart(Cart cart) {
+        BigDecimal totalPrice = cart.getCartItems().stream()
+                .map(item -> item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        cart.setTotalPrice(totalPrice);
     }
 }

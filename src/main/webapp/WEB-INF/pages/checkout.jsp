@@ -55,9 +55,5 @@
                 </tr>
             </c:forEach>
         </table>
-        <c:if test="${not empty cart.cartItems}">
-            <button>Update cart</button>
-            <a href="<c:url value="/checkout"/>">Checkout</a>
-        </c:if>
     </form>
 </tags:master>

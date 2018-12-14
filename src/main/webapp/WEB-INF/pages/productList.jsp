@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
-<tags:master pageTitle="product list">
+<tags:master pageTitle="product list" isShowCart="true">
     <jsp:useBean id="products" type="java.util.ArrayList" scope="request"/>
     <p>
         Welcome to Expert-Soft training!

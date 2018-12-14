@@ -23,7 +23,6 @@ import java.util.List;
 public class ProductDetailsPageServlet extends HttpServlet {
     private final static String VIEWED_PRODUCT_ATTRIBUTE = "viewedProducts";
     private final static String PRODUCT_ATTRIBUTE = "product";
-    private final static String CART_ATTRIBUTE = "cart";
     private final static String QUANTITY_ERROR_ATTRIBUTE = "quantityError";
     private final static String QUANTITY_PARAMETER = "quantity";
 
@@ -62,7 +61,6 @@ public class ProductDetailsPageServlet extends HttpServlet {
         List<Product> viewedList = loadViewedList(request);
 
         request.setAttribute(PRODUCT_ATTRIBUTE, product);
-        request.setAttribute(CART_ATTRIBUTE, cart.getCartItems());
         request.setAttribute(VIEWED_PRODUCT_ATTRIBUTE, viewedList);
 
         Integer quantity = null;
