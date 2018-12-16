@@ -8,6 +8,7 @@ import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.service.cartService.CartService;
 import com.es.phoneshop.service.cartService.CartServiceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -36,12 +37,19 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order placeOrder(Cart cart, String name, String deliveryAddress, String phone) {
         Order order = new Order();
+
         order.setName(name);
         order.setDeliveryAddress(deliveryAddress);
         order.setPhone(phone);
-        order.getCartItems().addAll(cart.getCartItems());
+
+        List<CartItem> cartListItems = cart.getCartItems();
+        order.setCartItems(cartListItems.stream()
+                .map(CartItem::new)
+                .collect(toList()));
         order.setTotalPrice(cart.getTotalPrice());
+
         ArrayListOrderDao.getInstance().save(order);
+
         return order;
     }
 }

@@ -57,6 +57,7 @@
         </table>
         <c:if test="${not empty cart.cartItems}">
             <button>Update cart</button>
+            <br>
             <a href="<c:url value="/checkout"/>">Checkout</a>
         </c:if>
     </form>
