@@ -21,14 +21,12 @@ public class ProductListPageServlet extends HttpServlet {
     private final static String ORDER_PARAMETER = "order";
 
     private ProductDao<Product> productDao;
-    private ViewedProductService viewedProductService;
 
     @Override
     public void init() throws ServletException {
         super.init();
 
         productDao = ArrayListProductDao.getInstance();
-        viewedProductService = ViewedProductServiceImpl.getInstance();
     }
 
     @Override
@@ -37,10 +35,6 @@ public class ProductListPageServlet extends HttpServlet {
         String sort = request.getParameter(SORT_PARAMETER);
         String order = request.getParameter(ORDER_PARAMETER);
 
-        ViewedProductList viewedProductList = viewedProductService.getViewedProductList(request.getSession());
-        List<Product> productList = viewedProductList.getViewedProduct();
-
-        request.setAttribute("viewedProducts", productList);
         request.setAttribute("products", productDao.findEntities(query, order, sort));
         request.getRequestDispatcher("/WEB-INF/pages/productList.jsp").forward(request, response);
     }

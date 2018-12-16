@@ -23,12 +23,12 @@ public class ArrayListOrderDao<T extends Order> extends OrderDao<T> {
     }
 
     @Override
-    public T getEntity(String id) {
+    public T getEntity(String secureId) {
         synchronized (entities) {
             return entities.stream()
-                    .filter((p) -> p.getSecureId().equals(id))
+                    .filter((p) -> secureId.equals(p.getSecureId()))
                     .findAny()
-                    .orElseThrow(() -> new IllegalArgumentException("There is no element with such id = " + id));
+                    .orElseThrow(() -> new IllegalArgumentException("There is no element with such id = " + secureId));
         }
     }
 }

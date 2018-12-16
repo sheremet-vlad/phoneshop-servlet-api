@@ -1,13 +1,14 @@
 package com.es.phoneshop.web;
 
-import com.es.phoneshop.dao.Dao;
+import com.es.phoneshop.dao.productDao.ArrayListProductDao;
+import com.es.phoneshop.dao.productDao.ProductDao;
+import com.es.phoneshop.exception.IllegalStockArgumentException;
 import com.es.phoneshop.model.cart.Cart;
+import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.service.cartService.CartService;
 import com.es.phoneshop.service.cartService.CartServiceImpl;
-import com.es.phoneshop.exception.IllegalStockArgumentException;
-import com.es.phoneshop.dao.productDao.ArrayListProductDao;
-import com.es.phoneshop.model.product.Product;
-import com.es.phoneshop.dao.productDao.ProductDao;
+import com.es.phoneshop.service.viewedProductService.ViewedProductService;
+import com.es.phoneshop.service.viewedProductService.ViewedProductServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -41,9 +43,7 @@ public class CartPageServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Cart cart = cartService.getCart(request.getSession());
-        showPage(request, response, cart);
-
+        request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
     }
 
     @Override
@@ -79,14 +79,9 @@ public class CartPageServlet extends HttpServlet {
         if (errors.isEmpty()) {
             response.sendRedirect(request.getRequestURI() + MESSAGE_CART_UPGRADE_SUCCESSFULLY);
         } else {
-            showPage(request, response, cart);
+            request.setAttribute(CART_ATTRIBUTE, cart);
+            request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
         }
 
-    }
-
-
-    private void showPage(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
-        request.setAttribute(CART_ATTRIBUTE, cart);
-        request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
     }
 }

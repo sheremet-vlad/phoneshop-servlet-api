@@ -19,13 +19,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class ProductDetailsPageServlet extends HttpServlet {
-    private final static String VIEWED_PRODUCT_ATTRIBUTE = "viewedProducts";
     private final static String PRODUCT_ATTRIBUTE = "product";
     private final static String QUANTITY_ERROR_ATTRIBUTE = "quantityError";
     private final static String QUANTITY_PARAMETER = "quantity";
 
     private CartService cartService;
-    private ViewedProductService viewedProductService;
     private ProductLoader productLoader;
 
     @Override
@@ -33,7 +31,6 @@ public class ProductDetailsPageServlet extends HttpServlet {
         super.init();
 
         cartService = CartServiceImpl.getInstance();
-        viewedProductService = ViewedProductServiceImpl.getInstance();
         productLoader = ProductLoader.getInstance();
     }
 
@@ -41,9 +38,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Product product = productLoader.loadProductFromURL(request);
-            List<Product> viewedList = loadViewedList(request);
             request.setAttribute(PRODUCT_ATTRIBUTE, product);
-            request.setAttribute(VIEWED_PRODUCT_ATTRIBUTE, viewedList);
             request.getRequestDispatcher("/WEB-INF/pages/product.jsp").forward(request, response);
         } catch (IllegalArgumentException e) {
             response.sendError(404);
@@ -56,10 +51,8 @@ public class ProductDetailsPageServlet extends HttpServlet {
         Product product = productLoader.loadProductFromURL(request);
         HttpSession httpSession = request.getSession();
         Cart cart = cartService.getCart(httpSession);
-        List<Product> viewedList = loadViewedList(request);
 
         request.setAttribute(PRODUCT_ATTRIBUTE, product);
-        request.setAttribute(VIEWED_PRODUCT_ATTRIBUTE, viewedList);
 
         Integer quantity = null;
         boolean isErrorInStockCount = true;
@@ -81,10 +74,5 @@ public class ProductDetailsPageServlet extends HttpServlet {
         if (isErrorInStockCount) {
             request.getRequestDispatcher("/WEB-INF/pages/product.jsp").forward(request, response);
         }
-    }
-
-    private List<Product> loadViewedList(HttpServletRequest request) {
-        ViewedProductList viewedProductList = viewedProductService.getViewedProductList(request.getSession());
-        return viewedProductList.getViewedProduct();
     }
 }

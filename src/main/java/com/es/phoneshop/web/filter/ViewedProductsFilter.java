@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class VeiwedProductsFilter implements Filter {
+public class ViewedProductsFilter implements Filter {
 
     private ViewedProductService viewedProductService;
     private ProductLoader productLoader;
@@ -35,6 +35,7 @@ public class VeiwedProductsFilter implements Filter {
             HttpSession httpSession = request.getSession();
             ViewedProductList viewedProductList = viewedProductService.getViewedProductList(httpSession);
             viewedProductService.addToViewed(product, viewedProductList);
+
         } catch (IllegalArgumentException e){
             throw new ServletException(e.getMessage());
         }

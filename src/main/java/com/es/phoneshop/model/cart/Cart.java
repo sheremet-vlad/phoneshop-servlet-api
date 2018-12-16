@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class Cart extends Entity {
     private List<CartItem> cartItems = new ArrayList<>();
-    private BigDecimal totalPrice;
+    private BigDecimal totalPrice = new BigDecimal(0);
 
     public List<CartItem> getCartItems() {
         return cartItems;

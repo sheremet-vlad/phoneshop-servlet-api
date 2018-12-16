@@ -16,7 +16,7 @@
 
   <filter>
     <filter-name>ViewedProductFilter</filter-name>
-    <filter-class>com.es.phoneshop.web.filter.VeiwedProductsFilter</filter-class>
+    <filter-class>com.es.phoneshop.web.filter.ViewedProductsFilter</filter-class>
   </filter>
 
   <filter-mapping>
@@ -32,6 +32,16 @@
   <servlet-mapping>
     <servlet-name>productList</servlet-name>
     <url-pattern>/products</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>orderOverview</servlet-name>
+    <servlet-class>com.es.phoneshop.web.OrderOverviewPageServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>orderOverview</servlet-name>
+    <url-pattern>/order-overview/*</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -76,7 +86,7 @@
 
   <filter>
     <filter-name>cartFilter</filter-name>
-    <filter-class>com.es.phoneshop.web.filter.CartFilter</filter-class>
+    <filter-class>com.es.phoneshop.web.filter.AttributeSetterFilter</filter-class>
   </filter>
 
   <filter-mapping>

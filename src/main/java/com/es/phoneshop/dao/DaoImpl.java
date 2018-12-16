@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class DaoImpl<T extends Entity> implements Dao<T>, Serializable {
+public class DaoImpl<T extends Entity> implements Dao<T>, Serializable {
 
     protected final List<T> entities = new ArrayList<>();
 
@@ -23,8 +23,13 @@ public abstract class DaoImpl<T extends Entity> implements Dao<T>, Serializable 
     @Override
     public void save(T t) {
         synchronized (entities) {
-            if (!isExist(t.getId())) {
+            if (t.getId() == null) {
+                t.setId((long) entities.size() + 1);
                 entities.add(t);
+            } else {
+                if (!isExist(t.getId())) {
+                    entities.add(t);
+                }
             }
         }
     }

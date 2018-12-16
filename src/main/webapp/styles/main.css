@@ -12,6 +12,11 @@ header img {
   max-width: 64px;
 }
 
+footer {
+  border-top: 2px solid #2b2b2b;
+  margin-top: 10px
+}
+
 .cart-in-header {
   float: right;
   font-size: 50px;

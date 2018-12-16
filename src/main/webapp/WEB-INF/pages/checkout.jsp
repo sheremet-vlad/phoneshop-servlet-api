@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
-<tags:master pageTitle="Cart" isShowCart="false">
+<tags:master pageTitle="Checkout page" isShowCart="false">
     <jsp:useBean id="cart" type="com.es.phoneshop.model.cart.Cart" scope="request"/>
     <form method="post" action="${pageContext.servletContext.contextPath}/checkout">
         <table>
@@ -33,6 +33,15 @@
                     </td>
                 </tr>
             </c:forEach>
+            <tr>
+                <c:if test="${not empty cart}">
+                    <td></td>
+                    <td></td>
+                    <td class="price">Total price:</td>
+                    <td><fmt:formatNumber value="${cart.totalPrice}" type="currency"
+                                          currencySymbol="${cart.cartItems.get(0).product.currency.symbol}"/></td>
+                </c:if>
+            </tr>
         </table>
         <br><br>
         <input name="name" placeholder="Name"/>
@@ -40,6 +49,10 @@
         <input name="deliveryAddress" placeholder="Delivery address">
         <br><br>
         <input name="phone" placeholder="Phone">
+        <br><br>
+        <c:if test="${not empty errorMessage}">
+            <p class="error">${errorMessage}</p>
+        </c:if>
         <button>Place order</button>
     </form>
 </tags:master>
