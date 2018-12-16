@@ -3,7 +3,7 @@ package com.es.phoneshop.web;
 import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.dao.productDao.ProductDao;
 import com.es.phoneshop.model.viewedProduct.ViewedProductList;
-import com.es.phoneshop.service.ViewedProductService;
+import com.es.phoneshop.service.viewedProductService.ViewedProductService;
 import com.es.phoneshop.util.ProductLoader;
 import org.junit.After;
 import org.junit.Before;

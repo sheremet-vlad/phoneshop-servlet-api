@@ -1,8 +1,9 @@
 package com.es.phoneshop.web;
 
+import com.es.phoneshop.dao.Dao;
 import com.es.phoneshop.model.cart.Cart;
-import com.es.phoneshop.service.CartService;
-import com.es.phoneshop.service.CartServiceImpl;
+import com.es.phoneshop.service.cartService.CartService;
+import com.es.phoneshop.service.cartService.CartServiceImpl;
 import com.es.phoneshop.exception.IllegalStockArgumentException;
 import com.es.phoneshop.dao.productDao.ArrayListProductDao;
 import com.es.phoneshop.model.product.Product;
@@ -28,7 +29,7 @@ public class CartPageServlet extends HttpServlet {
     private final static String MESSAGE_CART_UPGRADE_SUCCESSFULLY = "?message=cart upgrade successfully";
 
     private CartService cartService;
-    private ProductDao productDao;
+    private ProductDao<Product> productDao;
 
     @Override
     public void init() throws ServletException {
@@ -54,7 +55,7 @@ public class CartPageServlet extends HttpServlet {
 
         for (int i = 0; i < productsId.length; i++) {
             Long productId = Long.valueOf(productsId[i]);
-            Product product = productDao.getProduct(productId);
+            Product product = productDao.getEntity(productId);
             Integer quantity = null;
             try {
                 quantity = Integer.valueOf(quantities[i]);

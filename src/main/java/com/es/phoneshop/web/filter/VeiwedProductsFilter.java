@@ -3,8 +3,8 @@ package com.es.phoneshop.web.filter;
 import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.util.ProductLoader;
 import com.es.phoneshop.model.viewedProduct.ViewedProductList;
-import com.es.phoneshop.service.ViewedProductService;
-import com.es.phoneshop.service.ViewedProductServiceImpl;
+import com.es.phoneshop.service.viewedProductService.ViewedProductService;
+import com.es.phoneshop.service.viewedProductService.ViewedProductServiceImpl;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

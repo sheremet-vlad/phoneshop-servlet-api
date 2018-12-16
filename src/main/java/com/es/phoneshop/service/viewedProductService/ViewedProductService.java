@@ -1,4 +1,4 @@
-package com.es.phoneshop.service;
+package com.es.phoneshop.service.viewedProductService;
 
 import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.model.viewedProduct.ViewedProductList;

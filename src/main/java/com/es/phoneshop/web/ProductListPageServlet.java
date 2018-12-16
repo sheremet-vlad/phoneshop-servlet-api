@@ -1,11 +1,12 @@
 package com.es.phoneshop.web;
 
+import com.es.phoneshop.dao.Dao;
 import com.es.phoneshop.dao.productDao.ArrayListProductDao;
 import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.dao.productDao.ProductDao;
 import com.es.phoneshop.model.viewedProduct.ViewedProductList;
-import com.es.phoneshop.service.ViewedProductService;
-import com.es.phoneshop.service.ViewedProductServiceImpl;
+import com.es.phoneshop.service.viewedProductService.ViewedProductService;
+import com.es.phoneshop.service.viewedProductService.ViewedProductServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ public class ProductListPageServlet extends HttpServlet {
     private final static String SORT_PARAMETER = "sort";
     private final static String ORDER_PARAMETER = "order";
 
-    private ProductDao productDao;
+    private ProductDao<Product> productDao;
     private ViewedProductService viewedProductService;
 
     @Override
@@ -40,7 +41,7 @@ public class ProductListPageServlet extends HttpServlet {
         List<Product> productList = viewedProductList.getViewedProduct();
 
         request.setAttribute("viewedProducts", productList);
-        request.setAttribute("products", productDao.findProducts(query, order, sort));
+        request.setAttribute("products", productDao.findEntities(query, order, sort));
         request.getRequestDispatcher("/WEB-INF/pages/productList.jsp").forward(request, response);
     }
 }

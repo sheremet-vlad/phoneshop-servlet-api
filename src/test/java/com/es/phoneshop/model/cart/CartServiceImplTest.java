@@ -2,8 +2,8 @@ package com.es.phoneshop.model.cart;
 
 import com.es.phoneshop.exception.IllegalStockArgumentException;
 import com.es.phoneshop.model.product.Product;
-import com.es.phoneshop.service.CartService;
-import com.es.phoneshop.service.CartServiceImpl;
+import com.es.phoneshop.service.cartService.CartService;
+import com.es.phoneshop.service.cartService.CartServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

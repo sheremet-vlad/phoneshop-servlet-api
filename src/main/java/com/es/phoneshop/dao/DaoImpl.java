@@ -1,29 +1,19 @@
 package com.es.phoneshop.dao;
 
-import com.es.phoneshop.model.product.Product;
+import com.es.phoneshop.model.Entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
-public abstract class DaoImpl implements Dao, Serializable {
-    private final static String QUERY_SPLIT = "\\s";
-    private final static String SORT_DESCRIPTION = "description";
-    private final static String ORDER_DEC = "dec";
+public abstract class DaoImpl<T extends Entity> implements Dao<T>, Serializable {
 
-
-    private final List<Product> productList = new ArrayList<>();
+    protected final List<T> entities = new ArrayList<>();
 
     @Override
-    public Product getProduct(Long id) {
-        synchronized (productList) {
-            return productList.stream()
+    public T getEntity(Long id) {
+        synchronized (entities) {
+            return entities.stream()
                     .filter((p) -> p.getId().equals(id))
                     .findAny()
                     .orElseThrow(() -> new IllegalArgumentException("There is no element with such id = " + id));
@@ -31,48 +21,18 @@ public abstract class DaoImpl implements Dao, Serializable {
     }
 
     @Override
-    public List<Product> findProducts(String query, String order, String sort) {
-        synchronized (productList) {
-            Predicate<Product> isValidProduct = product -> product.getPrice() != null && product.getStock() > 0;
-
-            List<Product> foundProduct = productList.stream()
-                    .filter(isValidProduct)
-                    .collect(Collectors.toList());
-
-            if (query != null) {
-                String[]queries = query.split(QUERY_SPLIT);
-
-                foundProduct = productList.stream()
-                        .collect(Collectors.toMap(Function.identity(), product -> Arrays.stream(queries)
-                                .filter(word -> product.getDescription().contains(word)).count()))
-                        .entrySet().stream()
-                        .filter(entry -> entry.getValue() > 0)
-                        .sorted(Comparator.comparing(Map.Entry<Product, Long>::getValue).reversed())
-                        .map(Map.Entry::getKey)
-                        .collect(Collectors.toList());
-            }
-
-            if (sort != null) {
-                return sortProduct(foundProduct, order, sort);
-            } else {
-                return foundProduct;
-            }
-        }
-    }
-
-    @Override
-    public void save(Product product) {
-        synchronized (productList) {
-            if (!isExist(product.getId())) {
-                productList.add(product);
+    public void save(T t) {
+        synchronized (entities) {
+            if (!isExist(t.getId())) {
+                entities.add(t);
             }
         }
     }
 
     @Override
     public void delete(Long id) {
-        synchronized (productList) {
-            if (!productList.removeIf(p -> p.getId().equals(id))) {
+        synchronized (entities) {
+            if (!entities.removeIf(p -> p.getId().equals(id))) {
                 throw new IllegalArgumentException("There is no element with such id = " + id);
             }
         }
@@ -80,31 +40,14 @@ public abstract class DaoImpl implements Dao, Serializable {
 
     @Override
     public void deleteAll() {
-        synchronized (productList) {
-            productList.clear();
+        synchronized (entities) {
+            entities.clear();
         }
     }
 
     private boolean isExist(Long id) {
-        return productList.stream()
+        return entities.stream()
                 .anyMatch((p) -> p.getId().equals(id));
     }
 
-    private List<Product> sortProduct(List<Product> list, String order, String sort) {
-        Comparator<Product> comparator;
-
-        if (sort.equals(SORT_DESCRIPTION)) {
-            comparator = Comparator.comparing(Product::getDescription);
-        } else {
-            comparator = Comparator.comparing(Product::getPrice);
-        }
-
-        if (order.equals(ORDER_DEC)) {
-            comparator = (comparator).reversed();
-        }
-
-        return list.stream()
-                .sorted(comparator)
-                .collect(Collectors.toList());
-    }
 }

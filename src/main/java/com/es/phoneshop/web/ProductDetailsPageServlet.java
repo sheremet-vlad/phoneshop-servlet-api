@@ -1,13 +1,13 @@
 package com.es.phoneshop.web;
 
 import com.es.phoneshop.model.cart.Cart;
-import com.es.phoneshop.service.CartService;
-import com.es.phoneshop.service.CartServiceImpl;
+import com.es.phoneshop.service.cartService.CartService;
+import com.es.phoneshop.service.cartService.CartServiceImpl;
 import com.es.phoneshop.exception.IllegalStockArgumentException;
 import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.model.viewedProduct.ViewedProductList;
-import com.es.phoneshop.service.ViewedProductService;
-import com.es.phoneshop.service.ViewedProductServiceImpl;
+import com.es.phoneshop.service.viewedProductService.ViewedProductService;
+import com.es.phoneshop.service.viewedProductService.ViewedProductServiceImpl;
 import com.es.phoneshop.util.ProductLoader;
 
 import javax.servlet.ServletException;

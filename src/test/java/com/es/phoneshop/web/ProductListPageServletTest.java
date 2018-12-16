@@ -1,7 +1,7 @@
 package com.es.phoneshop.web;
 
 import com.es.phoneshop.model.viewedProduct.ViewedProductList;
-import com.es.phoneshop.service.ViewedProductService;
+import com.es.phoneshop.service.viewedProductService.ViewedProductService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

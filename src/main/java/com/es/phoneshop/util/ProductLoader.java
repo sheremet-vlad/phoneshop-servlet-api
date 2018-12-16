@@ -7,7 +7,7 @@ import com.es.phoneshop.dao.productDao.ProductDao;
 import javax.servlet.http.HttpServletRequest;
 
 public class ProductLoader {
-    private ProductDao productDao = ArrayListProductDao.getInstance();
+    private ProductDao<Product> productDao = ArrayListProductDao.getInstance();
 
     private static volatile ProductLoader productLoader;
     private final static Object lock = new Object();
@@ -33,6 +33,6 @@ public class ProductLoader {
         int indexOfIdInUri = request.getContextPath().length() + request.getServletPath().length() + 1;
         String stringId = uri.substring(indexOfIdInUri);
         Long id = Long.parseLong(stringId);
-        return productDao.getProduct(id);
+        return productDao.getEntity(id);
     }
 }
