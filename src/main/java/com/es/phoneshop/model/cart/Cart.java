@@ -22,7 +22,7 @@ public class Cart extends Entity {
     private BigDecimal totalPrice = new BigDecimal(0);
 
     /**
-     * Method return list of cart items from cart
+     * Method returns list of cart items from cart
      *
      * @return {@code List} list of cart items
      */
@@ -31,7 +31,7 @@ public class Cart extends Entity {
     }
 
     /**
-     * Set list of cart items to cart.
+     * Method sets list of cart items to cart.
      *
      * @param cartItems list of cart items
      *
@@ -41,7 +41,7 @@ public class Cart extends Entity {
     }
 
     /**
-     * Method return total price of all cart items from cart
+     * Method returns total price of all cart items from cart
      *
      * @return {@code BigDecimal} total price
      *
@@ -51,9 +51,9 @@ public class Cart extends Entity {
     }
 
     /**
-     * Method set total price to cart
+     * Method sets total price to cart
      *
-     * @param totalPrice total of all cart items
+     * @param totalPrice total price of all cart items
      */
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;

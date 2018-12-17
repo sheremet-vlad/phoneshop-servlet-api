@@ -11,16 +11,36 @@ import java.util.UUID;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * This class realize interface
+ * to work with order. It is a singleton.
+ *
+ * @author sheremet-vlad
+ *
+ * @version 1.0
+ */
 public class OrderServiceImpl implements OrderService {
 
+    /** used to save order in dao*/
     private OrderDao<Order> orderDao = ArrayListOrderDao.getInstance();
 
+    /** contain instance of OrderServiceImpl*/
     private static volatile OrderService orderService;
+
+    /** used to Double-Checked Locking singleton*/
     private static final Object lock = new Object();
 
+    /** Private method creates object */
     private OrderServiceImpl() {
     }
 
+    /**
+     * Method realizes singleton pattern.
+     * If orderService is null, then method creates new
+     * orderServiceImpl. Returns instance of OrderServiceImpl.
+     *
+     * @return {@code OrderService} instance of OrderServiceImpl.
+     */
     public static OrderService getInstance() {
         if (orderService == null) {
             synchronized (lock) {

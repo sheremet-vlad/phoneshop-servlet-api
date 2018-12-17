@@ -21,7 +21,7 @@ public class CartItem implements Serializable {
     private Integer quantity;
 
     /**
-     * Method create object with passed parameters
+     * Method creates object with passed parameters
      *
      * @param product product of item
      * @param quantity quantity of product in item
@@ -32,7 +32,7 @@ public class CartItem implements Serializable {
     }
 
     /**
-     * Method create object with copy values
+     * Method creates object with copy values
      * from passed parameter
      *
      * @param cartItem used as copy object
@@ -43,7 +43,7 @@ public class CartItem implements Serializable {
     }
 
     /**
-     * Method get product from item
+     * Method gets product from item
      *
      * @return {@code Product} product from item
      */
@@ -52,7 +52,7 @@ public class CartItem implements Serializable {
     }
 
     /**
-     * Method set product in item
+     * Method sets product in item
      *
      * @param product product that will be set in item
      */
@@ -61,7 +61,7 @@ public class CartItem implements Serializable {
     }
 
     /**
-     * Method get quantity of product from item
+     * Method gets quantity of product from item
      *
      * @return {@code Integer} quantity of product in item
      */
@@ -70,7 +70,7 @@ public class CartItem implements Serializable {
     }
 
     /**
-     * Method set quantity of product in item
+     * Method sets quantity of product in item
      *
      * @param quantity quantity that will be set in item
      */

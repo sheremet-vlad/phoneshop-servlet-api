@@ -11,16 +11,35 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+/**
+ * This class realize interface
+ * to work with cart. It is a singleton.
+ *
+ * @author sheremet-vlad
+ *
+ * @version 1.0
+ */
 public class CartServiceImpl implements CartService {
-
+    /** attribute to gt cart from session*/
     private final static String CART_ATTRIBUTE = "cart";
 
+    /** contain instance of CartService*/
     private static volatile CartService cartService = null;
+
+    /** used to Double-Checked Locking singleton*/
     private final static Object lock = new Object();
 
+    /** Private method creates object*/
     private CartServiceImpl(){
     }
 
+    /**
+     * Method realizes singleton pattern.
+     * If cartService is null, then method creates new
+     * cartService. Returns instance of CartService.
+     *
+     * @return {@code CartService} instance of CartService
+     */
     public static CartService getInstance() {
         if (cartService == null) {
             synchronized (lock) {
@@ -71,6 +90,16 @@ public class CartServiceImpl implements CartService {
         recalculateCart(cart);
     }
 
+    /**
+     * Method checks product quantity.
+     *
+     * @param currentStock product stock
+     * @param quantity product quantity
+     *
+     * @return {@code boolean} If quantity less
+     *   than zero or more than currentStock, or quantity
+     *   is null, then it will be return false, else true.
+     */
     private boolean isQuantityNotValid(Integer currentStock, Integer quantity) {
         return quantity == null
                 || currentStock < quantity

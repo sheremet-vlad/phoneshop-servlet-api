@@ -27,13 +27,13 @@ public class Product extends Entity {
     private String imageUrl;
 
     /**
-     * Method create object and sets nothing
+     * Method creates object and sets nothing
      */
     public Product() {
     }
 
     /**
-     * Method create object and set passed parameters
+     * Method creates object and set passed parameters
      *
      * @param id product id
      * @param code product code, producer name
@@ -54,7 +54,7 @@ public class Product extends Entity {
     }
 
     /**
-     * Method return product code
+     * Method returns product code
      *
      * @return {@code String} product code, producer name
      */
@@ -63,7 +63,7 @@ public class Product extends Entity {
     }
 
     /**
-    / * Method set code to product
+    / * Method sets code to product
      *
      * @param code code that will be set to product code
      */
@@ -72,7 +72,7 @@ public class Product extends Entity {
     }
 
     /**
-     * Method return product description
+     * Method returns product description
      *
      * @return {@code String} product description
      */
@@ -81,7 +81,7 @@ public class Product extends Entity {
     }
 
     /**
-     * Method set product description
+     * Method sets product description
      *
      * @param description description that will be set to product description
      */
@@ -90,7 +90,7 @@ public class Product extends Entity {
     }
 
     /**
-     * Method get product price
+     * Method gets product price
      *
      * @return {@code BigDecimal} product price, null means
      * there is no price because the product is outdated or new
@@ -100,7 +100,7 @@ public class Product extends Entity {
     }
 
     /**
-     * Method set product price
+     * Method sets product price
      *
      * @param price price that will be st to product price
      */
@@ -109,7 +109,7 @@ public class Product extends Entity {
     }
 
     /**
-     * Method get product currency
+     * Method gets product currency
      *
      * @return @{code Currency} product currency, can be null
      * if price is null
@@ -119,7 +119,7 @@ public class Product extends Entity {
     }
 
     /**
-     * Method set product currency
+     * Method sets product currency
      *
      * @param currency currency that will be set to product currency
      */
@@ -128,7 +128,7 @@ public class Product extends Entity {
     }
 
     /**
-     * Method get product stock
+     * Method gets product stock
      *
      * @return {@code int} product stock, can be null
      * if  product is outdated
@@ -138,7 +138,7 @@ public class Product extends Entity {
     }
 
     /**
-     * Method set product stock
+     * Method sets product stock
      * You can set null that mean
      * what product is outed
      *
@@ -149,7 +149,7 @@ public class Product extends Entity {
     }
 
     /**
-     * Method return main photo url
+     * Method returns main photo url
      *
      * @return {@code String} main photo url
      */
@@ -158,7 +158,7 @@ public class Product extends Entity {
     }
 
     /**
-     * Method set main photo url
+     * Method sets main photo url
      *
      * @param imageUrl url that will be set to product url
      */

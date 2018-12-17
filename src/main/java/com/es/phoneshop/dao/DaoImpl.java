@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoImpl<T extends Entity> implements Dao<T>, Serializable {
+public abstract class DaoImpl<T extends Entity> implements Dao<T>, Serializable {
 
     protected final List<T> entities = new ArrayList<>();
 
