@@ -56,7 +56,7 @@
 
                 </tr>
             </c:forEach>
-            <c:if test="${not empty cart}">
+            <c:if test="${not empty cart.cartItems}">
                 <tr>
                     <td></td>
                     <td></td>

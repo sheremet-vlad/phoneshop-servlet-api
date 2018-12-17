@@ -5,19 +5,10 @@ import com.es.phoneshop.model.cart.Cart;
 import java.util.Objects;
 
 public class Order extends Cart {
-    private Long id;
     private String secureId;
     private String name;
     private String deliveryAddress;
     private String phone;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getSecureId() {
         return secureId;
@@ -54,7 +45,7 @@ public class Order extends Cart {
     @Override
     public String toString() {
         return "Order{" +
-                "id=" + id +
+                "id=" + super.getId() +
                 ", secureId='" + secureId + '\'' +
                 ", name='" + name + '\'' +
                 ", deliveryAddress='" + deliveryAddress + '\'' +
@@ -68,8 +59,7 @@ public class Order extends Cart {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Order order = (Order) o;
-        return Objects.equals(id, order.id) &&
-                Objects.equals(secureId, order.secureId) &&
+        return Objects.equals(secureId, order.secureId) &&
                 Objects.equals(name, order.name) &&
                 Objects.equals(deliveryAddress, order.deliveryAddress) &&
                 Objects.equals(phone, order.phone);
@@ -77,6 +67,6 @@ public class Order extends Cart {
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, secureId, name, deliveryAddress, phone);
+        return Objects.hash(super.hashCode(), secureId, name, deliveryAddress, phone);
     }
 }

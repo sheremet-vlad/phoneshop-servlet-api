@@ -1,6 +1,7 @@
 package com.es.phoneshop.service.orderService;
 
 import com.es.phoneshop.dao.orderDao.ArrayListOrderDao;
+import com.es.phoneshop.dao.orderDao.OrderDao;
 import com.es.phoneshop.model.cart.Cart;
 import com.es.phoneshop.model.cart.CartItem;
 import com.es.phoneshop.model.order.Order;
@@ -11,6 +12,8 @@ import java.util.UUID;
 import static java.util.stream.Collectors.toList;
 
 public class OrderServiceImpl implements OrderService {
+
+    private OrderDao<Order> orderDao = ArrayListOrderDao.getInstance();
 
     private static volatile OrderService orderService;
     private static final Object lock = new Object();
@@ -42,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
         order.setCartItems(cartListItems.stream().map(CartItem::new).collect(toList()));
         order.setTotalPrice(cart.getTotalPrice());
 
-        ArrayListOrderDao.getInstance().save(order);
+        orderDao.save(order);
 
         return order;
     }

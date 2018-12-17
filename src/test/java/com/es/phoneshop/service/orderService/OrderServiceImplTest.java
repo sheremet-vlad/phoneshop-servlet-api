@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderServiceImplTest {
-    private static Cart cart;
+    private Cart cart;
 
     private final static OrderService orderService = OrderServiceImpl.getInstance();
     private Order order;
@@ -30,10 +30,10 @@ public class OrderServiceImplTest {
     @Test
     public void testPlaceOrder() {
         order = orderService.placeOrder(cart, "a", "b", "c");
-        Long actualId = order.getId();
-        Long expectedId = 0L;
+        String actualName = order.getName();
+        String expectedName = "a";
 
-        Assert.assertEquals(expectedId, actualId);
+        Assert.assertEquals(expectedName, actualName);
     }
 
     @Test
