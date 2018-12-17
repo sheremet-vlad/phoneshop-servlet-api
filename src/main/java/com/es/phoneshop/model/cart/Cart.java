@@ -2,28 +2,59 @@ package com.es.phoneshop.model.cart;
 
 import com.es.phoneshop.model.Entity;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class is used to contain
+ * cart items and total price
+ *
+ * @author sheremet-vlad
+ *
+ * @version 1.0
+ */
 public class Cart extends Entity {
+    /** List of cart items*/
     private List<CartItem> cartItems = new ArrayList<>();
+    /** Total price of all cart items*/
     private BigDecimal totalPrice = new BigDecimal(0);
 
+    /**
+     * Method return list of cart items from cart
+     *
+     * @return {@code List} list of cart items
+     */
     public List<CartItem> getCartItems() {
         return cartItems;
     }
 
+    /**
+     * Set list of cart items to cart.
+     *
+     * @param cartItems list of cart items
+     *
+     */
     public void setCartItems(List<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
 
+    /**
+     * Method return total price of all cart items from cart
+     *
+     * @return {@code BigDecimal} total price
+     *
+     */
     public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
+    /**
+     * Method set total price to cart
+     *
+     * @param totalPrice total of all cart items
+     */
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
