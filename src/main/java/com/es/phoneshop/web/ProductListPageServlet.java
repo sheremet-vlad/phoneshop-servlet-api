@@ -1,19 +1,14 @@
 package com.es.phoneshop.web;
 
-import com.es.phoneshop.dao.Dao;
 import com.es.phoneshop.dao.productDao.ArrayListProductDao;
-import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.dao.productDao.ProductDao;
-import com.es.phoneshop.model.viewedProduct.ViewedProductList;
-import com.es.phoneshop.service.viewedProductService.ViewedProductService;
-import com.es.phoneshop.service.viewedProductService.ViewedProductServiceImpl;
+import com.es.phoneshop.model.product.Product;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 public class ProductListPageServlet extends HttpServlet {
     private final static String SEARCH_QUERY = "query";

@@ -12,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class CheckoutPageServlet extends HttpServlet {
@@ -44,11 +43,7 @@ public class CheckoutPageServlet extends HttpServlet {
         String name = request.getParameter(NAME_ATTRIBUTE);
         String deliveryAddress = request.getParameter(DELIVERY_ADDRESS_ATTRIBUTE);
         String phone = request.getParameter(PHONE_ATTRIBUTE);
-        System.out.println(name);
-        System.out.println(deliveryAddress);
-        System.out.println(phone);
-        Integer a = null;
-        System.out.println(a);
+
         if (orderService.checkParameters(name, deliveryAddress, phone)) {
             Order order = orderService.placeOrder(cart, name, deliveryAddress, phone);
             cartService.clearCart(cart);

@@ -49,8 +49,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean checkParameters(String name, String deliveryAddress, String phone) {
-        return !(name.equals("")
-                && deliveryAddress.equals("")
-                && phone.equals(""));
+        return (name != null && deliveryAddress != null && phone != null) &&
+                !(name.equals("") || deliveryAddress.equals("") || phone.equals(""));
     }
 }

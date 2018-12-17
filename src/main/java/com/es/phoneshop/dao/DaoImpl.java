@@ -24,7 +24,7 @@ public class DaoImpl<T extends Entity> implements Dao<T>, Serializable {
     public void save(T t) {
         synchronized (entities) {
             if (t.getId() == null) {
-                t.setId((long) entities.size() + 1);
+                t.setId((long) entities.size());
                 entities.add(t);
             } else {
                 if (!isExist(t.getId())) {
