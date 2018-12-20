@@ -1,19 +1,20 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Vlad
-  Date: 18.11.2018
-  Time: 4:39
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <header>
+
     <a href="${pageContext.servletContext.contextPath}">
         <img src="${pageContext.servletContext.contextPath}/images/logo.svg"/>
         PhoneShop
     </a>
 
-    <div class="menu">
-        <a href="${pageContext.servletContext.contextPath}/cart">Cart</a>
-    </div>
+    <c:if test="${param.isShowCart == true}">
+        <div class="cart-in-header">
+            <a href="${pageContext.servletContext.contextPath}/cart">Cart: </a>
+            ${cart.totalPrice}
+        </div>
+    </c:if>
+
 
     <div class="clearfix"></div>
 </header>

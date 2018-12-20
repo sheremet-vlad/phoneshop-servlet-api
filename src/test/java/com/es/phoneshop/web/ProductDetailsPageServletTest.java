@@ -1,9 +1,9 @@
 package com.es.phoneshop.web;
 
+import com.es.phoneshop.dao.productDao.ProductDao;
+import com.es.phoneshop.exception.IllegalStockArgumentException;
 import com.es.phoneshop.model.product.Product;
-import com.es.phoneshop.model.product.ProductDao;
-import com.es.phoneshop.model.viewedProduct.ViewedProductList;
-import com.es.phoneshop.model.viewedProduct.ViewedProductService;
+import com.es.phoneshop.service.cartService.CartService;
 import com.es.phoneshop.util.ProductLoader;
 import org.junit.After;
 import org.junit.Before;
@@ -18,11 +18,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.Locale;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -33,10 +32,6 @@ public class ProductDetailsPageServletTest {
 
     @Mock
     private ProductDao productDao;
-    @Mock
-    private ViewedProductService viewedProductService;
-    @Mock
-    private ViewedProductList viewedProductList;
 
     @Mock
     private HttpServletRequest request;
@@ -48,15 +43,16 @@ public class ProductDetailsPageServletTest {
     private Product product;
     @Mock
     private ProductLoader productLoader;
+    @Mock
+    private CartService cartService;
 
     @Before
     public void setup() {
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
-        when(viewedProductService.getViewedProductList(any())).thenReturn(viewedProductList);
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         productDao.deleteAll();
     }
 
@@ -67,6 +63,46 @@ public class ProductDetailsPageServletTest {
 
         verify(request).setAttribute("product", product);
         verify(requestDispatcher).forward(request, response);
+    }
+
+    @Test
+    public void testDoGetProductNotExist() throws ServletException, IOException {
+        when(productLoader.loadProductFromURL(request)).thenThrow(IllegalArgumentException.class);
+
+        servlet.doGet(request, response);
+
+        verify(response).sendError(404);
+    }
+
+    @Test
+    public void testDoGetInvalidProductId() throws ServletException, IOException {
+        when(productLoader.loadProductFromURL(request)).thenThrow(NumberFormatException.class);
+
+        servlet.doGet(request, response);
+
+        verify(response).sendError(404);
+    }
+
+    @Test
+    public void testDoPostSendRedirectWhenOK() throws ServletException, IOException, IllegalStockArgumentException {
+        String quantity = "1";
+        when(productLoader.loadProductFromURL(request)).thenReturn(product);
+        when(request.getParameter("quantity")).thenReturn(quantity);
+
+        servlet.doPost(request, response);
+
+        verify(cartService).addToCart(any(), eq(product), eq(Integer.valueOf(quantity)));
+        verify(response).sendRedirect(anyString());
+    }
+
+    @Test
+    public void testDoPostQuantityError() throws ServletException, IOException {
+        when(request.getParameter("quantity")).thenThrow(NumberFormatException.class);
+
+        servlet.doPost(request, response);
+
+        verify(request).setAttribute(eq("quantityError"), anyString());
+        verify(response).sendRedirect(anyString());
     }
 
 }

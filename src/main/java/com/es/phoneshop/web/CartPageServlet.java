@@ -1,12 +1,12 @@
 package com.es.phoneshop.web;
 
+import com.es.phoneshop.dao.productDao.ArrayListProductDao;
+import com.es.phoneshop.dao.productDao.ProductDao;
+import com.es.phoneshop.exception.IllegalStockArgumentException;
 import com.es.phoneshop.model.cart.Cart;
-import com.es.phoneshop.model.cart.CartService;
-import com.es.phoneshop.model.cart.CartServiceImpl;
-import com.es.phoneshop.model.exception.IllegalStockArgumentException;
-import com.es.phoneshop.model.product.ArrayListProductDao;
 import com.es.phoneshop.model.product.Product;
-import com.es.phoneshop.model.product.ProductDao;
+import com.es.phoneshop.service.cartService.CartService;
+import com.es.phoneshop.service.cartService.CartServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +28,7 @@ public class CartPageServlet extends HttpServlet {
     private final static String MESSAGE_CART_UPGRADE_SUCCESSFULLY = "?message=cart upgrade successfully";
 
     private CartService cartService;
-    private ProductDao productDao;
+    private ProductDao<Product> productDao;
 
     @Override
     public void init() throws ServletException {
@@ -40,9 +40,7 @@ public class CartPageServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Cart cart = cartService.getCart(request.getSession());
-        showPage(request, response, cart);
-
+        request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
     }
 
     @Override
@@ -54,7 +52,7 @@ public class CartPageServlet extends HttpServlet {
 
         for (int i = 0; i < productsId.length; i++) {
             Long productId = Long.valueOf(productsId[i]);
-            Product product = productDao.getProduct(productId);
+            Product product = productDao.getEntity(productId);
             Integer quantity = null;
             try {
                 quantity = Integer.valueOf(quantities[i]);
@@ -78,14 +76,9 @@ public class CartPageServlet extends HttpServlet {
         if (errors.isEmpty()) {
             response.sendRedirect(request.getRequestURI() + MESSAGE_CART_UPGRADE_SUCCESSFULLY);
         } else {
-            showPage(request, response, cart);
+            request.setAttribute(CART_ATTRIBUTE, cart);
+            request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
         }
 
-    }
-
-
-    private void showPage(HttpServletRequest request, HttpServletResponse response, Cart cart) throws ServletException, IOException {
-        request.setAttribute(CART_ATTRIBUTE, cart);
-        request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
     }
 }

@@ -1,10 +1,9 @@
-package com.es.phoneshop.model.viwedProduct;
+package com.es.phoneshop.service.viwedProductService;
 
-import com.es.phoneshop.model.cart.Cart;
 import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.model.viewedProduct.ViewedProductList;
-import com.es.phoneshop.model.viewedProduct.ViewedProductService;
-import com.es.phoneshop.model.viewedProduct.ViewedProductServiceImpl;
+import com.es.phoneshop.service.viewedProductService.ViewedProductService;
+import com.es.phoneshop.service.viewedProductService.ViewedProductServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

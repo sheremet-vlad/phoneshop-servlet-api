@@ -3,21 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
-<tags:master pageTitle="Cart" isShowCart="false">
+<tags:master pageTitle="Checkout page" isShowCart="false">
     <jsp:useBean id="cart" type="com.es.phoneshop.model.cart.Cart" scope="request"/>
-
-    <form method="post" action="${pageContext.servletContext.contextPath}/cart">
-
-        <c:if test="${not empty cart.cartItems}">
-            <br><br>
-            <button>Update cart</button>
-            <br><br>
-        </c:if>
-
-        <c:if test="${not empty param.message}">
-            <p class="success">${param.message}</p>
-        </c:if>
-
+    <form method="post" action="${pageContext.servletContext.contextPath}/checkout">
         <table>
             <thead>
             <tr>
@@ -26,7 +14,6 @@
                 <td>Description</td>
                 <td class="number">Price</td>
                 <td class="number">Quantity</td>
-                <td></td>
             </tr>
             </thead>
             <c:forEach var="item" items="${cart.cartItems}" varStatus="status">
@@ -39,38 +26,33 @@
                     </td>
                     <td>${item.product.code}</td>
                     <td>${item.product.description}</td>
-                    <td class="price"><fmt:formatNumber value="${item.product.price}" type="currency" currencySymbol="${item.product.currency.symbol}"/></td>
+                    <td class="price"><fmt:formatNumber value="${item.product.price}" type="currency"
+                                                        currencySymbol="${item.product.currency.symbol}"/></td>
                     <td>
-                        <input name="quantity"
-                               value="${not empty errors[item.product.id] ? paramValues['quantity'][status.index] : item.quantity}">
-                        <input type="hidden" name="productId" value="${item.product.id}"/>
-                        <c:if test="${not empty errors[item.product.id]}">
-                            <p class="error">${errors[item.product.id]}</p>
-                        </c:if>
+                        <p class="price">${item.quantity}</p>
                     </td>
-                    <td>
-                        <button formaction="${pageContext.servletContext.contextPath}/cart/delete/${item.product.id}">
-                            Delete
-                        </button>
-                    </td>
-
                 </tr>
             </c:forEach>
-            <c:if test="${not empty cart.cartItems}">
-                <tr>
+            <tr>
+                <c:if test="${not empty cart}">
                     <td></td>
                     <td></td>
                     <td class="price">Total price:</td>
                     <td><fmt:formatNumber value="${cart.totalPrice}" type="currency"
                                           currencySymbol="${cart.cartItems.get(0).product.currency.symbol}"/></td>
-                </tr>
-            </c:if>
+                </c:if>
+            </tr>
         </table>
         <br><br>
-        <c:if test="${not empty cart.cartItems}">
-            <button>Update cart</button>
-            <br><br>
-            <a href="<c:url value="/checkout"/>">Checkout</a>
+        <input name="name" placeholder="Name"/>
+        <br><br>
+        <input name="deliveryAddress" placeholder="Delivery address">
+        <br><br>
+        <input name="phone" placeholder="Phone">
+        <br><br>
+        <c:if test="${not empty errorMessage}">
+            <p class="error">${errorMessage}</p>
         </c:if>
+        <button>Place order</button>
     </form>
 </tags:master>

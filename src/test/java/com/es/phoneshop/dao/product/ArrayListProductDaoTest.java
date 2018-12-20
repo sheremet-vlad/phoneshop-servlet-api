@@ -1,6 +1,8 @@
-package com.es.phoneshop.model.product;
+package com.es.phoneshop.dao.product;
 
-import com.es.phoneshop.model.exception.PhoneshopAppException;
+import com.es.phoneshop.dao.productDao.ArrayListProductDao;
+import com.es.phoneshop.dao.productDao.ProductDao;
+import com.es.phoneshop.model.product.Product;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +15,7 @@ import java.util.Locale;
 
 public class ArrayListProductDaoTest
 {
-    private ProductDao productDao;
+    private ProductDao<Product> productDao;
     private List<Product> list;
 
     @Before
@@ -42,14 +44,14 @@ public class ArrayListProductDaoTest
     public void getOneProductWithIdOne() {
         long numId = 1L;
 
-        Long id = productDao.getProduct(numId).getId();
+        Long id = productDao.getEntity(numId).getId();
 
         Assert.assertEquals(1, id.longValue());
     }
 
     @Test
     public void findAllProducts() {
-        List<Product> actualList = productDao.findProducts("",null, null);
+        List<Product> actualList = productDao.findEntities("",null, null);
         int expectedSize = 7;
 
         Assert.assertEquals(expectedSize, actualList.size());
@@ -59,7 +61,7 @@ public class ArrayListProductDaoTest
     public void saveProduct() {
         long id = 8L;
         productDao.save(new Product(8L, "sga", "Sss", new BigDecimal(100), Currency.getInstance(Locale.US), 100, "https"));
-        Product prod = productDao.getProduct(id);
+        Product prod = productDao.getEntity(id);
 
         Assert.assertNotNull(prod);
     }
@@ -69,7 +71,7 @@ public class ArrayListProductDaoTest
         long id = 8L;
 
         productDao.delete(id);
-        productDao.getProduct(id);
+        productDao.getEntity(id);
     }
 
     @Test
@@ -77,7 +79,7 @@ public class ArrayListProductDaoTest
         String query = "no";
         int expectedSize = 1;
 
-        List actualList= productDao.findProducts(query,null, null);
+        List actualList= productDao.findEntities(query,null, null);
         int actualSize = actualList.size();
 
         Assert.assertEquals(expectedSize, actualSize);
@@ -88,7 +90,7 @@ public class ArrayListProductDaoTest
         String query = "Sa or no";
         int expectedSize = 3;
 
-        List actualList = productDao.findProducts(query,null, null);
+        List actualList = productDao.findEntities(query,null, null);
         int actualSize = actualList.size();
 
         Assert.assertEquals(expectedSize, actualSize);
@@ -98,7 +100,7 @@ public class ArrayListProductDaoTest
     public void returnAllProduct() {
         int expectedSize = 6;
 
-        List actualList = productDao.findProducts(null,null, null);
+        List actualList = productDao.findEntities(null,null, null);
         int actualSize = actualList.size();
 
         Assert.assertEquals(expectedSize, actualSize);
@@ -106,7 +108,7 @@ public class ArrayListProductDaoTest
 
     @Test
     public void returnAscSortedByPriceProducts() {
-        List<Product> actualList = productDao.findProducts(null,"asc", "price");
+        List<Product> actualList = productDao.findEntities(null,"asc", "price");
 
         boolean sorted = true;
         for(int i = 1; i < actualList.size(); i++) {
@@ -121,7 +123,7 @@ public class ArrayListProductDaoTest
 
     @Test
     public void returnDecSortedByPriceProducts() {
-        List<Product> actualList = productDao.findProducts(null,"dec", "price");
+        List<Product> actualList = productDao.findEntities(null,"dec", "price");
 
         boolean sorted = true;
         for(int i = 1; i < actualList.size(); i++) {
@@ -136,7 +138,7 @@ public class ArrayListProductDaoTest
 
     @Test
     public void returnAscSortedByDescriptionProducts() {
-        List<Product> actualList = productDao.findProducts(null,"asc", "description");
+        List<Product> actualList = productDao.findEntities(null,"asc", "description");
 
         boolean sorted = true;
         for(int i = 1; i < actualList.size(); i++) {
@@ -151,7 +153,7 @@ public class ArrayListProductDaoTest
 
     @Test
     public void returnDecSortedByDescriptionProducts() {
-        List<Product> actualList = productDao.findProducts(null,"dec", "description");
+        List<Product> actualList = productDao.findEntities(null,"dec", "description");
 
         boolean sorted = true;
         for(int i = 1; i < actualList.size(); i++) {

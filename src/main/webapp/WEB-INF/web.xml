@@ -16,7 +16,7 @@
 
   <filter>
     <filter-name>ViewedProductFilter</filter-name>
-    <filter-class>com.es.phoneshop.web.filter.VeiwedProductsFilter</filter-class>
+    <filter-class>com.es.phoneshop.web.filter.ViewedProductsFilter</filter-class>
   </filter>
 
   <filter-mapping>
@@ -32,6 +32,16 @@
   <servlet-mapping>
     <servlet-name>productList</servlet-name>
     <url-pattern>/products</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>orderOverview</servlet-name>
+    <servlet-class>com.es.phoneshop.web.OrderOverviewPageServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>orderOverview</servlet-name>
+    <url-pattern>/order-overview/*</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -63,6 +73,26 @@
     <servlet-name>cartItemDelete</servlet-name>
     <url-pattern>/cart/delete/*</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>checkout</servlet-name>
+    <servlet-class>com.es.phoneshop.web.CheckoutPageServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>checkout</servlet-name>
+    <url-pattern>/checkout</url-pattern>
+  </servlet-mapping>
+
+  <filter>
+    <filter-name>cartFilter</filter-name>
+    <filter-class>com.es.phoneshop.web.filter.AttributeSetterFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>cartFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <error-page>
     <error-code>404</error-code>

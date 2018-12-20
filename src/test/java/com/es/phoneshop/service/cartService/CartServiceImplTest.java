@@ -1,6 +1,7 @@
-package com.es.phoneshop.model.cart;
+package com.es.phoneshop.service.cartService;
 
-import com.es.phoneshop.model.exception.IllegalStockArgumentException;
+import com.es.phoneshop.exception.IllegalStockArgumentException;
+import com.es.phoneshop.model.cart.Cart;
 import com.es.phoneshop.model.product.Product;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,9 +11,6 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
-
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
 
 public class CartServiceImplTest {
 
@@ -91,5 +89,28 @@ public class CartServiceImplTest {
     @Test(expected = IllegalStockArgumentException.class)
     public void shouldReturnExceptionWhenUpdatingQuantityIsNull() throws IllegalStockArgumentException {
         cartService.addToCart(cart,product,null);
+    }
+
+    @Test
+    public void testCalculateTotalPrice() throws IllegalStockArgumentException{
+        cartService.addToCart(cart, product1, 1);
+        cartService.addToCart(cart, product, 2);
+
+        BigDecimal expectedPrice = new BigDecimal(300);
+        BigDecimal actualPrice = cart.getTotalPrice();
+
+        Assert.assertEquals(expectedPrice, actualPrice);
+    }
+
+    @Test
+    public void testClearCart() throws IllegalStockArgumentException{
+        cartService.addToCart(cart, product, 1);
+
+        cartService.clearCart(cart);
+
+        int expectedSize = 0;
+        int actualSize = cart.getCartItems().size();
+
+        Assert.assertEquals(expectedSize, actualSize);
     }
 }

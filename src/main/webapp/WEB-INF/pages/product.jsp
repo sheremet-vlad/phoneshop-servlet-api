@@ -3,10 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
-<tags:master pageTitle="${product.description}">
-    <jsp:useBean id="product" type="com.es.phoneshop.model.product.Product" scope="request"/>
+<jsp:useBean id="product" type="com.es.phoneshop.model.product.Product" scope="request"/>
 
-    <table>
+<tags:master pageTitle="${product.description}" isShowCart="true">
+        <table>
         <tr>
             <td>
                 <img class="product-tile"
