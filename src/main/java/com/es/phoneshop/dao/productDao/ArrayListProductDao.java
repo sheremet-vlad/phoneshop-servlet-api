@@ -10,18 +10,45 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * This class realize {@link ProductDao}
+ * Class work with objects, that extends
+ * {@link Product}. It is a singleton.
+ *
+ * @param <T> type of object with which work database.
+ *
+ * @author sheremet-vlad
+ *
+ * @version 1.0
+ */
 public class ArrayListProductDao<T extends Product> extends ProductDao<T> {
+
+    /** expression to split query */
     private final static String QUERY_SPLIT = "\\s";
+
+    /** parameter to sort list by desription */
     private final static String SORT_DESCRIPTION = "description";
+
+    /** descending sorting direction */
     private final static String ORDER_DEC = "dec";
 
+    /** contain instance of ArrayListProductDao*/
     private static volatile ArrayListProductDao<Product> arrayListProductDao = null;
 
+    /** used to Double-Checked Locking singleton*/
     private static final Object lock = new Object();
 
+    /** Private method creates object*/
     private ArrayListProductDao() {
     }
 
+    /**
+     * Method realizes singleton pattern.
+     * If ArrayListProductDao is null, then method creates new
+     * arrayListProductDao. Returns instance of ArrayListProductDao.
+     *
+     * @return {@code ArrayListProductDao} instance of ArrayListProductDao
+     */
     public static ArrayListProductDao<Product> getInstance() {
         if (arrayListProductDao == null) {
             synchronized (lock) {
@@ -64,6 +91,18 @@ public class ArrayListProductDao<T extends Product> extends ProductDao<T> {
         }
     }
 
+    /**
+     * Method sorts list by sort-parameter. If sort is null,
+     * then takes default argument (price) to sorting. List will
+     * by sort by order. If order is null, then takes default
+     * value(asc).
+     *
+     * @param list list to sort
+     * @param order sorting order
+     * @param sort soring by this parameter
+     *
+     * @return {@code List} sorted list
+     */
     private List<T> sortProduct(List<T> list, String order, String sort) {
         Comparator<Product> comparator;
 
