@@ -70,3 +70,8 @@ body.product-list {
   font-size: 30px;
   margin: 50px
 }
+
+.input-field {
+  margin: 10px 0;
+  display: block;
+}

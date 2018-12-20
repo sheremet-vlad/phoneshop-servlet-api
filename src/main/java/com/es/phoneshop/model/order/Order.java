@@ -20,6 +20,9 @@ public class Order extends Cart {
     /**Name of order owner*/
     private String name;
 
+    /** Last Name of order owner*/
+    private String lastName;
+
     /**Address to delivery order*/
     private String deliveryAddress;
 
@@ -62,6 +65,25 @@ public class Order extends Cart {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Method returns order owner last name
+     *
+     * @return {@code String} order owner last name
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * Method sets passed parameter to order
+     * owner name
+     *
+     * @param lastName this parameter will be set to order owner last name
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     /**
@@ -109,6 +131,7 @@ public class Order extends Cart {
                 "id=" + super.getId() +
                 ", secureId='" + secureId + '\'' +
                 ", name='" + name + '\'' +
+                ", last name='" + lastName + '\'' +
                 ", deliveryAddress='" + deliveryAddress + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';
@@ -122,12 +145,13 @@ public class Order extends Cart {
         Order order = (Order) o;
         return Objects.equals(secureId, order.secureId) &&
                 Objects.equals(name, order.name) &&
+                Objects.equals(lastName, order.lastName) &&
                 Objects.equals(deliveryAddress, order.deliveryAddress) &&
                 Objects.equals(phone, order.phone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), secureId, name, deliveryAddress, phone);
+        return Objects.hash(super.hashCode(), secureId, name, lastName, deliveryAddress, phone);
     }
 }

@@ -41,6 +41,11 @@
         </tr>
     </table>
     <p>Name: ${order.name}</p>
+    <p>Last name: ${order.lastName}</p>
     <p>Delivery address: ${order.deliveryAddress}</p>
     <p>Phone: ${order.phone}</p>
+    <p>Delivery mode: courier</p>
+    <p>Delivery date: tomorrow</p>
+    <p>Payment method: money to courier</p>
+    <p>Delivery costs: 3</p>
 </tags:master>
