@@ -21,7 +21,7 @@ public interface Dao<T extends Entity> {
      * Method gets entity from database
      * by id
      *
-     * @param id id by which search entity
+     * @param id {@code Long} id by which search entity
      *
      * @return {@code T} entity from database with preset id
      *

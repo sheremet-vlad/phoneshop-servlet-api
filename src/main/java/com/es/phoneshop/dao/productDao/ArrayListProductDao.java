@@ -26,7 +26,7 @@ public class ArrayListProductDao<T extends Product> extends ProductDao<T> {
     /** expression to split query */
     private final static String QUERY_SPLIT = "\\s";
 
-    /** parameter to sort list by desription */
+    /** parameter to sort list by description */
     private final static String SORT_DESCRIPTION = "description";
 
     /** descending sorting direction */
