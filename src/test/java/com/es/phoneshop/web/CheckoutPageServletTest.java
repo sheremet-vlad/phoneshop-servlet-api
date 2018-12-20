@@ -58,7 +58,7 @@ public class CheckoutPageServletTest {
         String deliveryAddress = "b";
         when(request.getParameter(NAME_ATTRIBUTE)).thenReturn(name);
         when(request.getParameter(DELIVERY_ADDRESS_ATTRIBUTE)).thenReturn(deliveryAddress);
-        when(orderService.checkParameters(name, deliveryAddress, null)).thenReturn(false);
+        when(orderService.checkParameters(name, null, deliveryAddress, null)).thenReturn(false);
 
         servlet.doPost(request, response);
 

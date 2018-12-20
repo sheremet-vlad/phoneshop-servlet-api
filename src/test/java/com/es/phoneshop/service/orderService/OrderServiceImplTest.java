@@ -29,7 +29,7 @@ public class OrderServiceImplTest {
 
     @Test
     public void testPlaceOrder() {
-        order = orderService.placeOrder(cart, "a", "b", "c");
+        order = orderService.placeOrder(cart, "a", "f","b", "c");
         String actualName = order.getName();
         String expectedName = "a";
 
@@ -38,21 +38,21 @@ public class OrderServiceImplTest {
 
     @Test
     public void testCheckParameters() {
-        boolean result = orderService.checkParameters("a","b", "c");
+        boolean result = orderService.checkParameters("a","g","b", "c");
 
         Assert.assertTrue(result);
     }
 
     @Test
     public void testCheckParametersWithEmptyField() {
-        boolean result = orderService.checkParameters("","b", "c");
+        boolean result = orderService.checkParameters("","f","b", "c");
 
         Assert.assertFalse(result);
     }
 
     @Test
     public void testCheckParametersWithNullParameter() {
-        boolean result = orderService.checkParameters(null,"b", "c");
+        boolean result = orderService.checkParameters(null,"b","b", "c");
 
         Assert.assertFalse(result);
     }
