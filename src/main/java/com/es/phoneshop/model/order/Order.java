@@ -1,6 +1,7 @@
 package com.es.phoneshop.model.order;
 
 import com.es.phoneshop.model.cart.Cart;
+import com.es.phoneshop.model.deliveryMode.DeliveryMode;
 
 import java.util.Objects;
 
@@ -28,6 +29,8 @@ public class Order extends Cart {
 
     /**Phone of order owner*/
     private String phone;
+
+    private DeliveryMode deliveryMode;
 
     /**
      * Method return order secure id
@@ -125,16 +128,12 @@ public class Order extends Cart {
         this.phone = phone;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + super.getId() +
-                ", secureId='" + secureId + '\'' +
-                ", name='" + name + '\'' +
-                ", last name='" + lastName + '\'' +
-                ", deliveryAddress='" + deliveryAddress + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
+    public DeliveryMode getDeliveryMode() {
+        return deliveryMode;
+    }
+
+    public void setDeliveryMode(DeliveryMode deliveryMode) {
+        this.deliveryMode = deliveryMode;
     }
 
     @Override
@@ -147,11 +146,24 @@ public class Order extends Cart {
                 Objects.equals(name, order.name) &&
                 Objects.equals(lastName, order.lastName) &&
                 Objects.equals(deliveryAddress, order.deliveryAddress) &&
-                Objects.equals(phone, order.phone);
+                Objects.equals(phone, order.phone) &&
+                Objects.equals(deliveryMode, order.deliveryMode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), secureId, name, lastName, deliveryAddress, phone);
+        return Objects.hash(super.hashCode(), secureId, name, lastName, deliveryAddress, phone, deliveryMode);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "secureId='" + secureId + '\'' +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", deliveryAddress='" + deliveryAddress + '\'' +
+                ", phone='" + phone + '\'' +
+                ", deliveryMode=" + deliveryMode +
+                '}';
     }
 }

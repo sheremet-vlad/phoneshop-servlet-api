@@ -32,4 +32,23 @@
             </td>
         </tr>
     </table>
+    <br><br><br>
+    <form method="post">
+        <input name="reviewName" placeholder="name">
+        <input name="reviewMark" placeholder="mark 1..5">
+        <input name="reviewComment" placeholder="comment">
+        <button formaction="${pageContext.servletContext.contextPath}/products/addReview/${product.id}">Review</button>
+    </form>
+    <br><br><br>
+
+    <c:if test="${not empty rewies}">
+        <c:forEach var="review" items="${rewies}">
+            <br><br>
+            <p>Name: ${review.name}</p>
+            <p>Mark: ${review.mark}</p>
+            <p>Comments: ${review.commnts}</p>
+            <br><br>
+        </c:forEach>
+    </c:if>
+
 </tags:master>

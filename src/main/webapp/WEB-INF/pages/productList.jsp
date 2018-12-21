@@ -21,6 +21,8 @@
                 Description
                 <tags:sortLink text="asc" sort="description" order="asc" query="${param.query}"/>
                 <tags:sortLink text="dec" sort="description" order="dec" query="${param.query}"/>
+                <c:set var="salary" value="100"/>
+                <c:set var="salary" value="100"/>
             </td>
             <td class="price">
                 Price

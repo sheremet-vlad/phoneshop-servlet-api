@@ -1,11 +1,15 @@
 package com.es.phoneshop.web;
 
+import com.es.phoneshop.dao.reviewDao.ArrayListReviewDao;
+import com.es.phoneshop.dao.reviewDao.ReviewDao;
 import com.es.phoneshop.model.cart.Cart;
 import com.es.phoneshop.service.cartService.CartService;
 import com.es.phoneshop.service.cartService.CartServiceImpl;
 import com.es.phoneshop.exception.IllegalStockArgumentException;
 import com.es.phoneshop.model.product.Product;
 import com.es.phoneshop.model.viewedProduct.ViewedProductList;
+import com.es.phoneshop.service.reviewService.ReviewService;
+import com.es.phoneshop.service.reviewService.ReviewServiceImp;
 import com.es.phoneshop.service.viewedProductService.ViewedProductService;
 import com.es.phoneshop.service.viewedProductService.ViewedProductServiceImpl;
 import com.es.phoneshop.util.ProductLoader;
@@ -25,6 +29,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
     private CartService cartService;
     private ProductLoader productLoader;
+    private ReviewDao reviewDao;
 
     @Override
     public void init() throws ServletException {
@@ -32,6 +37,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
 
         cartService = CartServiceImpl.getInstance();
         productLoader = ProductLoader.getInstance();
+        reviewDao = ArrayListReviewDao.getInstance();
     }
 
     @Override
@@ -39,6 +45,8 @@ public class ProductDetailsPageServlet extends HttpServlet {
         try {
             Product product = productLoader.loadProductFromURL(request);
             request.setAttribute(PRODUCT_ATTRIBUTE, product);
+            System.out.println(reviewDao.getProductReview(product.getId()));
+            request.setAttribute("rewies", reviewDao.getProductReview(product.getId()));
             request.getRequestDispatcher("/WEB-INF/pages/product.jsp").forward(request, response);
         } catch (IllegalArgumentException e) {
             response.sendError(404);
@@ -53,6 +61,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
         Cart cart = cartService.getCart(httpSession);
 
         request.setAttribute(PRODUCT_ATTRIBUTE, product);
+        request.setAttribute("rewies", reviewDao.getProductReview(product.getId()));
 
         Integer quantity = null;
         boolean isErrorInStockCount = true;

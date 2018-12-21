@@ -75,6 +75,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>addReview</servlet-name>
+    <servlet-class>com.es.phoneshop.web.AddReviewServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>addReview</servlet-name>
+    <url-pattern>/products/addReview/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>checkout</servlet-name>
     <servlet-class>com.es.phoneshop.web.CheckoutPageServlet</servlet-class>
   </servlet>

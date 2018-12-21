@@ -27,7 +27,7 @@ public interface OrderService {
      * @return {@code Order} returns order with sets
      *  passed parameters
      */
-    Order placeOrder(Cart cart, String name, String lastName, String deliveryAddress, String phone);
+    Order placeOrder(Cart cart, String name, String lastName, String deliveryAddress, String phone, String deliveryModeId);
 
     /**
      * Method check order owner parameters
