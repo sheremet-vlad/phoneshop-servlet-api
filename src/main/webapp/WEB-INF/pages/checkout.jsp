@@ -43,16 +43,19 @@
                 </c:if>
             </tr>
         </table>
-        <br><br>
-        <input name="name" placeholder="Name"/>
-        <br><br>
-        <input name="deliveryAddress" placeholder="Delivery address">
-        <br><br>
-        <input name="phone" placeholder="Phone">
-        <br><br>
-        <c:if test="${not empty errorMessage}">
-            <p class="error">${errorMessage}</p>
+        <c:if test="${not empty cart}">
+            <input name="name" class="input-field" placeholder="Name"/>
+            <input name="lastName" class="input-field" placeholder="Last name">
+            <input name="deliveryAddress" class="input-field" placeholder="Delivery address">
+            <input name="phone" class="input-field" placeholder="Phone">
+            <p class="input-field">Delivery mode: courier</p>
+            <p class="input-field">Delivery date: tomorrow</p>
+            <p class="input-field">Payment method: money to courier</p>
+            <p class="input-field">Delivery costs: 3</p>
+            <c:if test="${not empty errorMessage}">
+                <p class="error">${errorMessage}</p>
+            </c:if>
+            <button>Place order</button>
         </c:if>
-        <button>Place order</button>
     </form>
 </tags:master>

@@ -22,11 +22,12 @@ public interface OrderService {
      * @param name order owner name
      * @param deliveryAddress order delivery address
      * @param phone order owner phone
+     * @param lastName order owner last name
      *
      * @return {@code Order} returns order with sets
      *  passed parameters
      */
-    Order placeOrder(Cart cart, String name, String deliveryAddress, String phone);
+    Order placeOrder(Cart cart, String name, String lastName, String deliveryAddress, String phone);
 
     /**
      * Method check order owner parameters
@@ -34,9 +35,10 @@ public interface OrderService {
      * @param name order owner name
      * @param deliveryAddress order delivery address
      * @param phone order owner phone
+     * @param lastName order owner last name
      *
      * @return {@code boolean} if all passed parameters
      * not null and not empty then return true, else false
      */
-    boolean checkParameters(String name, String deliveryAddress, String phone);
+    boolean checkParameters(String name, String lastName, String deliveryAddress, String phone);
 }

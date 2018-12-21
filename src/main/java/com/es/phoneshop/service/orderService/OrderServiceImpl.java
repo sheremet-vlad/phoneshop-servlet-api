@@ -54,10 +54,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order placeOrder(Cart cart, String name, String deliveryAddress, String phone) {
+    public Order placeOrder(Cart cart, String name, String lastName, String deliveryAddress, String phone) {
         Order order = new Order();
 
         order.setName(name);
+        order.setLastName(lastName);
         order.setDeliveryAddress(deliveryAddress);
         order.setPhone(phone);
         order.setSecureId(UUID.randomUUID().toString());
@@ -71,8 +72,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean checkParameters(String name, String deliveryAddress, String phone) {
-        return (name != null && deliveryAddress != null && phone != null) &&
-                !(name.equals("") || deliveryAddress.equals("") || phone.equals(""));
+    public boolean checkParameters(String name, String lastName, String deliveryAddress, String phone) {
+        return (name != null && lastName != null && deliveryAddress != null && phone != null) &&
+                !(name.equals("") || lastName.equals("") || deliveryAddress.equals("") || phone.equals(""));
     }
 }

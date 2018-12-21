@@ -16,6 +16,7 @@ import java.io.IOException;
 
 public class CheckoutPageServlet extends HttpServlet {
     private final static String NAME_ATTRIBUTE = "name";
+    private final static String LAST_NAME_ATTRIBUTE = "lastName";
     private final static String DELIVERY_ADDRESS_ATTRIBUTE = "deliveryAddress";
     private final static String PHONE_ATTRIBUTE = "phone";
     private final static String ERROR_MASSAGE_ATTRIBUTE = "errorMessage";
@@ -43,9 +44,10 @@ public class CheckoutPageServlet extends HttpServlet {
         String name = request.getParameter(NAME_ATTRIBUTE);
         String deliveryAddress = request.getParameter(DELIVERY_ADDRESS_ATTRIBUTE);
         String phone = request.getParameter(PHONE_ATTRIBUTE);
+        String lastName = request.getParameter(LAST_NAME_ATTRIBUTE);
 
-        if (orderService.checkParameters(name, deliveryAddress, phone)) {
-            Order order = orderService.placeOrder(cart, name, deliveryAddress, phone);
+        if (orderService.checkParameters(name, lastName, deliveryAddress, phone)) {
+            Order order = orderService.placeOrder(cart, name, lastName, deliveryAddress, phone);
             cartService.clearCart(cart);
             response.sendRedirect(request.getContextPath() + "/order-overview/" + order.getSecureId());
         } else {
