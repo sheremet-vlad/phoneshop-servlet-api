@@ -1,5 +1,7 @@
 package com.es.phoneshop.web;
 
+import com.es.phoneshop.dao.deliveryModeDao.ArrayListDeliveryModeDao;
+import com.es.phoneshop.dao.deliveryModeDao.DeliveryModeDao;
 import com.es.phoneshop.model.cart.Cart;
 import com.es.phoneshop.model.order.Order;
 import com.es.phoneshop.service.cartService.CartService;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class CheckoutPageServlet extends HttpServlet {
     private final static String NAME_ATTRIBUTE = "name";
@@ -21,9 +24,12 @@ public class CheckoutPageServlet extends HttpServlet {
     private final static String PHONE_ATTRIBUTE = "phone";
     private final static String ERROR_MASSAGE_ATTRIBUTE = "errorMessage";
     private final static String ERROR_MESSAGE = "error, all fields should be write in";
+    private final static String LIST_DELIVERY_MODE_ATTRIBUTE = "listOfDeliveryMode";
+    private final static String DELIVERY_MODE_ATTRIBUTE = "deliveryMode";
 
     private CartService cartService;
     private OrderService orderService;
+    private DeliveryModeDao deliveryModeDao;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -31,11 +37,12 @@ public class CheckoutPageServlet extends HttpServlet {
 
         cartService = CartServiceImpl.getInstance();
         orderService = OrderServiceImpl.getInstance();
+        deliveryModeDao = ArrayListDeliveryModeDao.getInstance();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/pages/checkout.jsp").forward(request, response);
+        showPage(request, response);
     }
 
     @Override
@@ -45,16 +52,24 @@ public class CheckoutPageServlet extends HttpServlet {
         String deliveryAddress = request.getParameter(DELIVERY_ADDRESS_ATTRIBUTE);
         String phone = request.getParameter(PHONE_ATTRIBUTE);
         String lastName = request.getParameter(LAST_NAME_ATTRIBUTE);
+        String deliveryModeId = request.getParameter(DELIVERY_MODE_ATTRIBUTE);
 
         if (orderService.checkParameters(name, lastName, deliveryAddress, phone)) {
-            Order order = orderService.placeOrder(cart, name, lastName, deliveryAddress, phone);
+            Order order = orderService.placeOrder(cart, name, lastName, deliveryAddress, phone, deliveryModeId);
             cartService.clearCart(cart);
             response.sendRedirect(request.getContextPath() + "/order-overview/" + order.getSecureId());
         } else {
             request.setAttribute(ERROR_MASSAGE_ATTRIBUTE, ERROR_MESSAGE);
-            request.getRequestDispatcher("/WEB-INF/pages/checkout.jsp").forward(request, response);
+            showPage(request, response);
         }
 
+    }
+
+    private void showPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List deliveryModeList = deliveryModeDao.findAllEntities();
+        request.setAttribute(LIST_DELIVERY_MODE_ATTRIBUTE, deliveryModeList);
+        System.out.println(deliveryModeList);
+        request.getRequestDispatcher("/WEB-INF/pages/checkout.jsp").forward(request, response);
     }
 
 

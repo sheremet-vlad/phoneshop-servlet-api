@@ -1,9 +1,12 @@
 package com.es.phoneshop.service.orderService;
 
+import com.es.phoneshop.dao.deliveryModeDao.ArrayListDeliveryModeDao;
+import com.es.phoneshop.dao.deliveryModeDao.DeliveryModeDao;
 import com.es.phoneshop.dao.orderDao.ArrayListOrderDao;
 import com.es.phoneshop.dao.orderDao.OrderDao;
 import com.es.phoneshop.model.cart.Cart;
 import com.es.phoneshop.model.cart.CartItem;
+import com.es.phoneshop.model.deliveryMode.DeliveryMode;
 import com.es.phoneshop.model.order.Order;
 
 import java.util.List;
@@ -54,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order placeOrder(Cart cart, String name, String lastName, String deliveryAddress, String phone) {
+    public Order placeOrder(Cart cart, String name, String lastName, String deliveryAddress, String phone, String deliveryModeId) {
         Order order = new Order();
 
         order.setName(name);
@@ -64,7 +67,12 @@ public class OrderServiceImpl implements OrderService {
         order.setSecureId(UUID.randomUUID().toString());
         List<CartItem> cartListItems = cart.getCartItems();
         order.setCartItems(cartListItems.stream().map(CartItem::new).collect(toList()));
-        order.setTotalPrice(cart.getTotalPrice());
+
+        DeliveryModeDao<DeliveryMode> deliveryModeDao = ArrayListDeliveryModeDao.getInstance();
+        DeliveryMode deliveryMode = deliveryModeDao.getEntity(Long.valueOf(deliveryModeId));
+        order.setDeliveryMode(deliveryMode);
+
+        order.setTotalPrice(cart.getTotalPrice().add(deliveryMode.getCost()));
 
         orderDao.save(order);
 

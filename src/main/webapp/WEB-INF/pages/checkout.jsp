@@ -48,7 +48,13 @@
             <input name="lastName" class="input-field" placeholder="Last name">
             <input name="deliveryAddress" class="input-field" placeholder="Delivery address">
             <input name="phone" class="input-field" placeholder="Phone">
-            <p class="input-field">Delivery mode: courier</p>
+            Delivery mode:
+            <select size="1" name="deliveryMode">
+                <c:forEach var="deliveryMode" items="${listOfDeliveryMode}">
+                    <option value="${deliveryMode.id}">${deliveryMode.name} - ${deliveryMode.cost}$</option>
+                </c:forEach>
+            </select>
+
             <p class="input-field">Delivery date: tomorrow</p>
             <p class="input-field">Payment method: money to courier</p>
             <p class="input-field">Delivery costs: 3</p>

@@ -1,6 +1,10 @@
 package com.es.phoneshop.web;
 
+import com.es.phoneshop.dao.DaoImpl;
+import com.es.phoneshop.dao.deliveryModeDao.ArrayListDeliveryModeDao;
+import com.es.phoneshop.dao.deliveryModeDao.DeliveryModeDao;
 import com.es.phoneshop.dao.productDao.ArrayListProductDao;
+import com.es.phoneshop.model.deliveryMode.DeliveryMode;
 import com.es.phoneshop.model.product.Product;
 
 import javax.servlet.ServletContextEvent;
@@ -36,6 +40,15 @@ public class SampleDataServletContextListener implements ServletContextListener 
             result.add(new Product(13L, "simsxg75", "Siemens SXG75", new BigDecimal(150), usd, 40, "https://raw.githubusercontent.com/andrewosipenko/phoneshop-ext-images/master/manufacturer/Siemens/Siemens%20SXG75.jpg"));
 
             result.forEach(productDao::save);
+
+            DeliveryModeDao deliveryModeDao = ArrayListDeliveryModeDao.getInstance();
+
+            List<DeliveryMode> deliveryModeList = new ArrayList<>();
+            deliveryModeList.add(new DeliveryMode(new BigDecimal(10), "courier"));
+            deliveryModeList.add(new DeliveryMode(new BigDecimal(5), "post"));
+            deliveryModeList.add(new DeliveryMode(new BigDecimal(0), "pickup"));
+
+            deliveryModeList.forEach(deliveryModeDao::save);
         }
     }
 
