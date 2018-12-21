@@ -41,14 +41,14 @@
     </form>
     <br><br><br>
 
-    <%--<c:if test="${not empty rewies}">
-        <c:forEach var="review" items="rewies">
+    <c:if test="${not empty rewies}">
+        <c:forEach var="review" items="${rewies}">
             <br><br>
             <p>Name: ${review.name}</p>
             <p>Mark: ${review.mark}</p>
-            <p>Comments: ${review.comments}</p>
+            <p>Comments: ${review.commnts}</p>
             <br><br>
         </c:forEach>
-    </c:if>--%>
+    </c:if>
 
 </tags:master>

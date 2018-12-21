@@ -45,6 +45,7 @@ public class ProductDetailsPageServlet extends HttpServlet {
         try {
             Product product = productLoader.loadProductFromURL(request);
             request.setAttribute(PRODUCT_ATTRIBUTE, product);
+            System.out.println(reviewDao.getProductReview(product.getId()));
             request.setAttribute("rewies", reviewDao.getProductReview(product.getId()));
             request.getRequestDispatcher("/WEB-INF/pages/product.jsp").forward(request, response);
         } catch (IllegalArgumentException e) {
